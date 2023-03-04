@@ -14,11 +14,13 @@
   width: 100%;
   flex-direction: column;
   align-items: center;
-  margin: 0.5rem 0 1.5rem;
+  margin: 0 0 1.5rem;
 }
 
 .playerInfoContainer > .title {
+  margin-top: 0.8rem;
   font-size: 0.9rem;
+  color: slategray;
   font-weight: bold;
 }
 
@@ -39,9 +41,4 @@
   width: 100%;
   flex-direction: row;
   align-items: center;
-}
-
-.playerControlContainer > img {
-  width: 88px;
-  height: 88px;
 }

@@ -5,7 +5,7 @@ import H5AudioPlayer from "react-h5-audio-player";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
 import type { Album } from "typings/album";
-import "./styles/App.css";
+import "styles/App.css";
 
 async function fetchAPI() {
   const res = await fetch(process.env.REACT_APP_BACKEND_SERVER ?? "");
@@ -36,16 +36,9 @@ function App() {
       });
   }, []);
 
-  // useEffect(() => {
-  //   if (player.current) {
-  //     player.current?.audio?.current?.pause();
-  //   }
-  // }, [selectedIndex]);
-
   return (
     <div className="App">
       <header>
-        <p>ECM Samples Player!</p>
         <AudioPlayer {...samplesList[selectedIndex]} ref={player} />
       </header>
       <section>

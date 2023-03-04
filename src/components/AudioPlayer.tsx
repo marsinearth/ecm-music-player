@@ -6,25 +6,24 @@ import "styles/AudioPlayer.css";
 import type { Album } from "typings/album";
 import Spinner from "./LoadingSpinner";
 
+const AlbumCover = ({ album_title, album_artist, track_title, album_image }: Omit<Album, 'url'>) => (
+  <div className="playerInfoContainer">
+    <LazyLoadImage
+      src={album_image}
+      alt={album_title}
+      width={400}
+      height={400}
+      placeholder={<Spinner />}
+    />
+    <div className="title">{track_title}</div>
+  </div  >
+)
+
 const AudioPlayer = forwardRef<ReactH5AudioPlayer, Album>(
-  ({ album_title, album_artist, track_title, album_image, url }, ref) => {
+  ({ url, ...albumProps }, ref) => {
     return (
-      <div className="audioPlayerContainer">
-        <div className="playerInfoContainer">
-          <div className="title">{track_title}</div>
-          <div className="album">{album_title}</div>
-          <div className="artist">{album_artist}</div>
-        </div>
-        <div className="playerControlContainer">
-          <LazyLoadImage
-            src={album_image}
-            width={88}
-            height={88}
-            alt={album_title}
-            placeholder={<Spinner />}
-          />
-          <ReactH5AudioPlayer src={url} ref={ref} />
-        </div>
+      <div className="audioPlayerContainer">                
+        <ReactH5AudioPlayer src={url} ref={ref} header={<AlbumCover {...albumProps}/>} />
       </div>
     );
   }

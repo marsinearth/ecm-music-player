@@ -5,3 +5,4 @@
 ## TODOS
 
 1. sync 버튼 추가
+2. mobile friendly하게 tracks selection list를 popup list로 변경 
