@@ -24,12 +24,15 @@ const AlbumCover = ({
   onOpenModal,
 }: AlbumCoverProps) => (
   <div className="playerInfoContainer">
-    <LazyLoadImage
-      src={album_image}
-      alt={album_title}
-      placeholder={<Spinner />}
-      onClick={onOpenModal}
-    />
+    <div className="albumCover">
+      <LazyLoadImage
+        src={album_image}
+        alt={album_title}
+        placeholder={<Spinner />}
+        onClick={onOpenModal}
+      />
+      <div className="library" />
+    </div>
     <div className="title">{track_title}</div>
   </div>
 );
