@@ -36,6 +36,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/react", "npm:18.0.28"],\
             ["@types/react-dom", "npm:18.0.11"],\
             ["@types/react-lazy-load-image-component", "npm:1.5.2"],\
+            ["@types/react-modal", "npm:3.13.1"],\
             ["@types/react-tooltip", "npm:4.2.4"],\
             ["@typescript-eslint/eslint-plugin", "virtual:096f3e41031b98aa18a3dd5df3ab2a2f793fde5edf54d839da74245fabebec7e35aa1e49116ebd57d4d321695278ad051779b0c0565e48cf9dbd51ff7df7035c#npm:5.54.0"],\
             ["@typescript-eslint/parser", "virtual:096f3e41031b98aa18a3dd5df3ab2a2f793fde5edf54d839da74245fabebec7e35aa1e49116ebd57d4d321695278ad051779b0c0565e48cf9dbd51ff7df7035c#npm:5.54.0"],\
@@ -46,6 +47,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-dom", "virtual:096f3e41031b98aa18a3dd5df3ab2a2f793fde5edf54d839da74245fabebec7e35aa1e49116ebd57d4d321695278ad051779b0c0565e48cf9dbd51ff7df7035c#npm:18.2.0"],\
             ["react-h5-audio-player", "virtual:096f3e41031b98aa18a3dd5df3ab2a2f793fde5edf54d839da74245fabebec7e35aa1e49116ebd57d4d321695278ad051779b0c0565e48cf9dbd51ff7df7035c#npm:3.8.6"],\
             ["react-lazy-load-image-component", "virtual:096f3e41031b98aa18a3dd5df3ab2a2f793fde5edf54d839da74245fabebec7e35aa1e49116ebd57d4d321695278ad051779b0c0565e48cf9dbd51ff7df7035c#npm:1.5.6"],\
+            ["react-modal", "virtual:096f3e41031b98aa18a3dd5df3ab2a2f793fde5edf54d839da74245fabebec7e35aa1e49116ebd57d4d321695278ad051779b0c0565e48cf9dbd51ff7df7035c#npm:3.16.1"],\
             ["react-scripts", "virtual:096f3e41031b98aa18a3dd5df3ab2a2f793fde5edf54d839da74245fabebec7e35aa1e49116ebd57d4d321695278ad051779b0c0565e48cf9dbd51ff7df7035c#npm:5.0.1"],\
             ["react-tooltip", "virtual:096f3e41031b98aa18a3dd5df3ab2a2f793fde5edf54d839da74245fabebec7e35aa1e49116ebd57d4d321695278ad051779b0c0565e48cf9dbd51ff7df7035c#npm:5.8.3"],\
             ["typescript", "patch:typescript@npm%3A4.9.5#~builtin<compat/typescript>::version=4.9.5&hash=23ec76"],\
@@ -4665,6 +4667,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["@types/react-modal", [\
+        ["npm:3.13.1", {\
+          "packageLocation": "./.yarn/cache/@types-react-modal-npm-3.13.1-6bb3eb42bb-b0ad403e00.zip/node_modules/@types/react-modal/",\
+          "packageDependencies": [\
+            ["@types/react-modal", "npm:3.13.1"],\
+            ["@types/react", "npm:18.0.28"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["@types/react-tooltip", [\
         ["npm:4.2.4", {\
           "packageLocation": "./.yarn/cache/@types-react-tooltip-npm-4.2.4-a172aa08af-6ecfdd6216.zip/node_modules/@types/react-tooltip/",\
@@ -7828,6 +7840,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/react", "npm:18.0.28"],\
             ["@types/react-dom", "npm:18.0.11"],\
             ["@types/react-lazy-load-image-component", "npm:1.5.2"],\
+            ["@types/react-modal", "npm:3.13.1"],\
             ["@types/react-tooltip", "npm:4.2.4"],\
             ["@typescript-eslint/eslint-plugin", "virtual:096f3e41031b98aa18a3dd5df3ab2a2f793fde5edf54d839da74245fabebec7e35aa1e49116ebd57d4d321695278ad051779b0c0565e48cf9dbd51ff7df7035c#npm:5.54.0"],\
             ["@typescript-eslint/parser", "virtual:096f3e41031b98aa18a3dd5df3ab2a2f793fde5edf54d839da74245fabebec7e35aa1e49116ebd57d4d321695278ad051779b0c0565e48cf9dbd51ff7df7035c#npm:5.54.0"],\
@@ -7838,6 +7851,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-dom", "virtual:096f3e41031b98aa18a3dd5df3ab2a2f793fde5edf54d839da74245fabebec7e35aa1e49116ebd57d4d321695278ad051779b0c0565e48cf9dbd51ff7df7035c#npm:18.2.0"],\
             ["react-h5-audio-player", "virtual:096f3e41031b98aa18a3dd5df3ab2a2f793fde5edf54d839da74245fabebec7e35aa1e49116ebd57d4d321695278ad051779b0c0565e48cf9dbd51ff7df7035c#npm:3.8.6"],\
             ["react-lazy-load-image-component", "virtual:096f3e41031b98aa18a3dd5df3ab2a2f793fde5edf54d839da74245fabebec7e35aa1e49116ebd57d4d321695278ad051779b0c0565e48cf9dbd51ff7df7035c#npm:1.5.6"],\
+            ["react-modal", "virtual:096f3e41031b98aa18a3dd5df3ab2a2f793fde5edf54d839da74245fabebec7e35aa1e49116ebd57d4d321695278ad051779b0c0565e48cf9dbd51ff7df7035c#npm:3.16.1"],\
             ["react-scripts", "virtual:096f3e41031b98aa18a3dd5df3ab2a2f793fde5edf54d839da74245fabebec7e35aa1e49116ebd57d4d321695278ad051779b0c0565e48cf9dbd51ff7df7035c#npm:5.0.1"],\
             ["react-tooltip", "virtual:096f3e41031b98aa18a3dd5df3ab2a2f793fde5edf54d839da74245fabebec7e35aa1e49116ebd57d4d321695278ad051779b0c0565e48cf9dbd51ff7df7035c#npm:5.8.3"],\
             ["typescript", "patch:typescript@npm%3A4.9.5#~builtin<compat/typescript>::version=4.9.5&hash=23ec76"],\
@@ -8776,6 +8790,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["onetime", "npm:5.1.2"],\
             ["signal-exit", "npm:3.0.7"],\
             ["strip-final-newline", "npm:2.0.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["exenv", [\
+        ["npm:1.2.2", {\
+          "packageLocation": "./.yarn/cache/exenv-npm-1.2.2-eeb9069149-a894f3b60a.zip/node_modules/exenv/",\
+          "packageDependencies": [\
+            ["exenv", "npm:1.2.2"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -14870,6 +14893,45 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["react-lifecycles-compat", [\
+        ["npm:3.0.4", {\
+          "packageLocation": "./.yarn/cache/react-lifecycles-compat-npm-3.0.4-d5e285a39e-a904b0fc0a.zip/node_modules/react-lifecycles-compat/",\
+          "packageDependencies": [\
+            ["react-lifecycles-compat", "npm:3.0.4"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["react-modal", [\
+        ["npm:3.16.1", {\
+          "packageLocation": "./.yarn/cache/react-modal-npm-3.16.1-3ba7cf9e93-978936e932.zip/node_modules/react-modal/",\
+          "packageDependencies": [\
+            ["react-modal", "npm:3.16.1"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:096f3e41031b98aa18a3dd5df3ab2a2f793fde5edf54d839da74245fabebec7e35aa1e49116ebd57d4d321695278ad051779b0c0565e48cf9dbd51ff7df7035c#npm:3.16.1", {\
+          "packageLocation": "./.yarn/__virtual__/react-modal-virtual-24ccfb0ad9/0/cache/react-modal-npm-3.16.1-3ba7cf9e93-978936e932.zip/node_modules/react-modal/",\
+          "packageDependencies": [\
+            ["react-modal", "virtual:096f3e41031b98aa18a3dd5df3ab2a2f793fde5edf54d839da74245fabebec7e35aa1e49116ebd57d4d321695278ad051779b0c0565e48cf9dbd51ff7df7035c#npm:3.16.1"],\
+            ["@types/react", "npm:18.0.28"],\
+            ["@types/react-dom", "npm:18.0.11"],\
+            ["exenv", "npm:1.2.2"],\
+            ["prop-types", "npm:15.8.1"],\
+            ["react", "npm:18.2.0"],\
+            ["react-dom", "virtual:096f3e41031b98aa18a3dd5df3ab2a2f793fde5edf54d839da74245fabebec7e35aa1e49116ebd57d4d321695278ad051779b0c0565e48cf9dbd51ff7df7035c#npm:18.2.0"],\
+            ["react-lifecycles-compat", "npm:3.0.4"],\
+            ["warning", "npm:4.0.3"]\
+          ],\
+          "packagePeers": [\
+            "@types/react-dom",\
+            "@types/react",\
+            "react-dom",\
+            "react"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["react-refresh", [\
         ["npm:0.11.0", {\
           "packageLocation": "./.yarn/cache/react-refresh-npm-0.11.0-c0a4e59e76-112178a05b.zip/node_modules/react-refresh/",\
@@ -17005,6 +17067,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["walker", "npm:1.0.8"],\
             ["makeerror", "npm:1.0.12"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["warning", [\
+        ["npm:4.0.3", {\
+          "packageLocation": "./.yarn/cache/warning-npm-4.0.3-291e921d6d-4f2cb6a957.zip/node_modules/warning/",\
+          "packageDependencies": [\
+            ["warning", "npm:4.0.3"],\
+            ["loose-envify", "npm:1.4.0"]\
           ],\
           "linkType": "HARD"\
         }]\

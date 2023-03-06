@@ -1,11 +1,11 @@
-import AlbumCard from "components/AlbumCard";
+import AlbumsModal from "components/AlbumsModal";
 import AudioPlayer from "components/AudioPlayer";
 import { useCallback, useEffect, useRef, useState } from "react";
 import H5AudioPlayer from "react-h5-audio-player";
-import { Tooltip } from "react-tooltip";
+
 import "react-tooltip/dist/react-tooltip.css";
+import "styles/App.css";
 import type { Album } from "typings/album";
-import "./styles/App.css";
 
 async function fetchAPI() {
   const res = await fetch(process.env.REACT_APP_BACKEND_SERVER ?? "");
@@ -14,12 +14,21 @@ async function fetchAPI() {
 
 function App() {
   const player = useRef<H5AudioPlayer | null>(null);
+  const [modalOpen, setModalOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [samplesList, setSamplesList] = useState<Album[]>([]);
 
-  const setAlbum = useCallback((index: number) => {
-    setSelectedIndex(index);
-  }, []);
+  const handlePrevTrack = useCallback(() => {
+    setSelectedIndex((currSelectedIndex) =>
+      currSelectedIndex > 0 ? currSelectedIndex - 1 : samplesList.length - 1
+    );
+  }, [samplesList]);
+
+  const handleNextTrack = useCallback(() => {
+    setSelectedIndex((currSelectedIndex) =>
+      currSelectedIndex < samplesList.length - 1 ? currSelectedIndex + 1 : 0
+    );
+  }, [samplesList]);
 
   useEffect(() => {
     fetchAPI()
@@ -36,24 +45,26 @@ function App() {
       });
   }, []);
 
-  // useEffect(() => {
-  //   if (player.current) {
-  //     player.current?.audio?.current?.pause();
-  //   }
-  // }, [selectedIndex]);
-
   return (
     <div className="App">
       <header>
-        <p>ECM Samples Player!</p>
-        <AudioPlayer {...samplesList[selectedIndex]} ref={player} />
+        <div className="audioPlayerContainer">
+          <AudioPlayer
+            ref={player}
+            album={samplesList[selectedIndex]}
+            setModalOpen={setModalOpen}
+            handlePrevTrack={handlePrevTrack}
+            handleNextTrack={handleNextTrack}
+          />
+        </div>
       </header>
-      <section>
-        {samplesList.map((album, i) => (
-          <AlbumCard key={album.id} {...album} index={i} setAlbum={setAlbum} />
-        ))}
-      </section>
-      <Tooltip anchorSelect=".audioCardContainer" />
+      <AlbumsModal
+        modalOpen={modalOpen}
+        setModalOpen={setModalOpen}
+        samplesList={samplesList}
+        selectedIndex={selectedIndex}
+        setSelectedIndex={setSelectedIndex}
+      />
     </div>
   );
 }

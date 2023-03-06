@@ -1,0 +1,41 @@
+.albumCardContainer {
+  position: relative;
+  max-width: 400px;
+  cursor: pointer;
+}
+
+.albumCardPlayingNowOverlay {
+  position: absolute;
+  background-color: rgba(165, 195, 205, 0.75);
+  inset: 0;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  color: darkslategrey;
+  cursor: default;
+}
+
+.albumCardContainer > img {
+  width: 100%;
+}
+
+@media screen and (min-width: 769px) {
+  .albumCardContainer {
+    width: 20%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .albumCardContainer {
+    width: 33%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .albumCardContainer {
+    width: 50%;
+  }
+}
