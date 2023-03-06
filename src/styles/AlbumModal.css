@@ -1,0 +1,33 @@
+section {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  row-gap: 0;
+  height: fit-content;
+}
+
+.closeBtn {
+  position: fixed;
+  right: 5px;
+  top: 5px;
+  width: 50px;
+  height: 50px;
+  border-radius: 40px;
+  box-shadow: 3px 3px 3px slategray;
+  cursor: pointer;
+  background: center / 50% no-repeat url("../media/close-ico.png") lightgray;
+  z-index: 5;
+}
+
+.ReactModal__Overlay {
+  opacity: 0;
+  transition: opacity 200ms ease-in-out;
+}
+
+.ReactModal__Overlay--after-open {
+  opacity: 1;
+}
+
+.ReactModal__Overlay--before-close {
+  opacity: 0;
+}

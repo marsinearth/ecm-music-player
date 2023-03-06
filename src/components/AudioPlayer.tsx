@@ -1,4 +1,4 @@
-import { forwardRef } from "react";
+import { Dispatch, forwardRef, SetStateAction, useCallback } from "react";
 import ReactH5AudioPlayer from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
 import { LazyLoadImage } from "react-lazy-load-image-component";
@@ -6,25 +6,56 @@ import "styles/AudioPlayer.css";
 import type { Album } from "typings/album";
 import Spinner from "./LoadingSpinner";
 
-const AlbumCover = ({ album_title, album_artist, track_title, album_image }: Omit<Album, 'url'>) => (
+type AudioPlayerProps = {
+  album: Album;
+  setModalOpen: Dispatch<SetStateAction<boolean>>;
+  handlePrevTrack: () => void;
+  handleNextTrack: () => void;
+};
+
+type AlbumCoverProps = Omit<Album, "url"> & {
+  onOpenModal: () => void;
+};
+
+const AlbumCover = ({
+  album_title,
+  track_title,
+  album_image,
+  onOpenModal,
+}: AlbumCoverProps) => (
   <div className="playerInfoContainer">
     <LazyLoadImage
       src={album_image}
       alt={album_title}
-      width={400}
-      height={400}
       placeholder={<Spinner />}
+      onClick={onOpenModal}
     />
     <div className="title">{track_title}</div>
-  </div  >
-)
+  </div>
+);
 
-const AudioPlayer = forwardRef<ReactH5AudioPlayer, Album>(
-  ({ url, ...albumProps }, ref) => {
+const AudioPlayer = forwardRef<ReactH5AudioPlayer, AudioPlayerProps>(
+  ({ album, setModalOpen, handlePrevTrack, handleNextTrack }, ref) => {
+    if (!album) {
+      return <Spinner style={{ height: 400 }} />;
+    }
+
+    const onOpenModal = useCallback(() => {
+      setModalOpen(true);
+    }, []);
+
+    const { url, ...albumProps } = album;
     return (
-      <div className="audioPlayerContainer">                
-        <ReactH5AudioPlayer src={url} ref={ref} header={<AlbumCover {...albumProps}/>} />
-      </div>
+      <ReactH5AudioPlayer
+        src={url}
+        ref={ref}
+        header={<AlbumCover {...albumProps} onOpenModal={onOpenModal} />}
+        onClickNext={handleNextTrack}
+        onClickPrevious={handlePrevTrack}
+        onEnded={handleNextTrack}
+        showSkipControls
+        showJumpControls={false}
+      />
     );
   }
 );

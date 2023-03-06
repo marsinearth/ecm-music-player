@@ -1,8 +1,13 @@
+import type { CSSProperties } from "react";
 import "styles/LoadingSpinner.css";
 
-export default function Spinner() {
+type SpinnerProps = {
+  style?: CSSProperties;
+};
+
+export default function Spinner({ style }: SpinnerProps) {
   return (
-    <div className="spinnerContainer">
+    <div className="spinnerContainer" style={style}>
       <div className="spinner">
         <div className="r1"></div>
         <div className="r2"></div>
