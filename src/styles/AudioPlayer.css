@@ -1,7 +1,7 @@
 .playerInfoContainer {
   display: flex;
   flex-direction: column;
-  margin: 0 0 1.5rem;
+  margin: 0;
 }
 
 .albumCover {
@@ -25,18 +25,40 @@
   width: 50px;
   height: 50px;
   border-radius: 25px;
-  background: center / 75% no-repeat url("../media/music-collection.svg")
-    lightgray;
+  background: center / 65% no-repeat url("../media/music-collection.svg")
+    #dddddd;
   pointer-events: none;
-  box-shadow: 3px 3px 3px black;
+  box-shadow: 1px 1px 5px #868686;
+}
+
+.libraryButton {
+  margin-left: 5px;
+  width: 26px;
+  height: 26px;
+  background: center / contain no-repeat url("../media/music-collection.svg")
+    transparent;
+  cursor: pointer;
 }
 
 .rhap_container {
   padding: 10px 0;
 }
 
-.rhap_main.rhap_stacked {
+.rhap_main.rhap_stacked-reverse {
   padding: 0 15px;
+}
+
+.rhap_additional-controls {
+  position: relative;
+  flex: 1 1 33%;
+}
+
+.rhap_main-controls {
+  flex: 1 1 33%;
+}
+
+.rhap_volume-controls {
+  flex: 1 1 33%;
 }
 
 .playerInfoContainer > .title {
@@ -64,6 +86,22 @@
   width: 100%;
   flex-direction: row;
   align-items: center;
+}
+
+.playerLoopOneBadge {
+  position: absolute;
+  top: 15px;
+  left: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 12px;
+  height: 12px;
+  border-radius: 6px;
+  background-color: #868686;
+  color: #dddddd;
+  font-size: 8px;
+  font-weight: bold;
 }
 
 @media (prefers-color-scheme: dark) {
