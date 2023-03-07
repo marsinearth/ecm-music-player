@@ -7,8 +7,18 @@ import Spinner from "./LoadingSpinner";
 type AlbumCardProps = Album & {
   index: number;
   selected: boolean;
+  playing: boolean;
   setAlbum: (index: number) => void;
 };
+
+const AlbumCardSpinner = () => (
+  <Spinner
+    style={{
+      maxWidth: 400,
+      maxHeight: 400,
+    }}
+  />
+);
 
 function AlbumCard({
   album_title,
@@ -17,6 +27,7 @@ function AlbumCard({
   album_image,
   index,
   selected,
+  playing,
   setAlbum,
 }: AlbumCardProps) {
   return (
@@ -30,13 +41,14 @@ function AlbumCard({
       <LazyLoadImage
         src={album_image}
         alt={album_title}
-        placeholder={<Spinner />}
+        placeholder={<AlbumCardSpinner />}
       />
+
       <div
         className="albumCardPlayingNowOverlay"
         style={{ display: selected ? "flex" : "none" }}
       >
-        Now Playing
+        {playing ? "Now Playing" : "Selected"}
       </div>
     </div>
   );

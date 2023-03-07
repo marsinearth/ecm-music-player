@@ -13,7 +13,7 @@ async function fetchAPI() {
 }
 
 function App() {
-  const player = useRef<H5AudioPlayer | null>(null);
+  const playerRef = useRef<H5AudioPlayer | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [samplesList, setSamplesList] = useState<Album[]>([]);
@@ -50,7 +50,7 @@ function App() {
       <header>
         <div className="audioPlayerContainer">
           <AudioPlayer
-            ref={player}
+            ref={playerRef}
             album={samplesList[selectedIndex]}
             setModalOpen={setModalOpen}
             handlePrevTrack={handlePrevTrack}
@@ -59,6 +59,7 @@ function App() {
         </div>
       </header>
       <AlbumsModal
+        ref={playerRef}
         modalOpen={modalOpen}
         setModalOpen={setModalOpen}
         samplesList={samplesList}

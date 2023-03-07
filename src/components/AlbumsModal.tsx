@@ -1,4 +1,11 @@
-import { Dispatch, SetStateAction, useCallback } from "react";
+import {
+  Dispatch,
+  forwardRef,
+  RefObject,
+  SetStateAction,
+  useCallback,
+} from "react";
+import H5AudioPlayer from "react-h5-audio-player";
 import Modal from "react-modal";
 import { Tooltip } from "react-tooltip";
 import "styles/AlbumModal.css";
@@ -24,6 +31,7 @@ const modalStyle: Modal.Styles = {
   content: {
     inset: "10px",
     padding: "0",
+    backgroundColor: "transparent",
   },
 };
 
@@ -31,40 +39,45 @@ const CloseButton = ({ onCloseModal }: CloseButtonProps) => {
   return <div className="closeBtn" onClick={onCloseModal} />;
 };
 
-export default function AlbumsModal({
-  modalOpen,
-  setModalOpen,
-  samplesList,
-  selectedIndex,
-  setSelectedIndex,
-}: AlbumsModalProps) {
-  const onCloseModal = useCallback(() => {
-    setModalOpen(false);
-  }, []);
+const AlbumsModal = forwardRef<H5AudioPlayer, AlbumsModalProps>(
+  (
+    { modalOpen, setModalOpen, samplesList, selectedIndex, setSelectedIndex },
+    playerRef
+  ) => {
+    const onCloseModal = useCallback(() => {
+      setModalOpen(false);
+    }, []);
 
-  const setAlbum = useCallback(
-    (index: number) => {
-      setSelectedIndex(index);
-      onCloseModal();
-    },
-    [onCloseModal]
-  );
+    const setAlbum = useCallback(
+      (index: number) => {
+        setSelectedIndex(index);
+        onCloseModal();
+      },
+      [onCloseModal]
+    );
 
-  return (
-    <Modal isOpen={modalOpen} closeTimeoutMS={200} style={modalStyle}>
-      <section>
-        {samplesList.map((album, i) => (
-          <AlbumCard
-            key={album.id}
-            {...album}
-            index={i}
-            selected={i === selectedIndex}
-            setAlbum={setAlbum}
-          />
-        ))}
+    const playing = !(playerRef as RefObject<H5AudioPlayer>)?.current?.audio
+      ?.current?.paused;
+
+    return (
+      <Modal isOpen={modalOpen} closeTimeoutMS={200} style={modalStyle}>
         <CloseButton onCloseModal={onCloseModal} />
-      </section>
-      <Tooltip anchorSelect=".albumCardContainer" noArrow float />
-    </Modal>
-  );
-}
+        <section>
+          {samplesList.map((album, i) => (
+            <AlbumCard
+              key={album.id}
+              {...album}
+              index={i}
+              selected={i === selectedIndex}
+              playing={playing}
+              setAlbum={setAlbum}
+            />
+          ))}
+        </section>
+        <Tooltip anchorSelect=".albumCardContainer" noArrow float />
+      </Modal>
+    );
+  }
+);
+
+export default AlbumsModal;
