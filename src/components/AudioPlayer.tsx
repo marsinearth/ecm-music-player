@@ -37,17 +37,6 @@ const LibraryButton = ({ visible, onOpenModal }: LibraryButtonProps) => {
   return <div className="libraryButton" onClick={onOpenModal} />;
 };
 
-const AlbumSpinner = () => (
-  <Spinner
-    style={{
-      width: "100vw",
-      maxWidth: 430,
-      height: "100vw",
-      maxHeight: 430,
-    }}
-  />
-);
-
 const AlbumCover = ({
   track_title,
   album_image,
@@ -58,13 +47,15 @@ const AlbumCover = ({
     <div className="playerInfoContainer">
       <div className="albumCover">
         {!album_image ? (
-          <AlbumSpinner />
+          <Spinner />
         ) : (
           <>
             <LazyLoadImage
               src={album_image}
               alt={album_title}
-              placeholder={<AlbumSpinner />}
+              width="100%"
+              height="100%"
+              placeholder={<Spinner />}
               onClick={onOpenModal}
             />
             <div className="library" />
