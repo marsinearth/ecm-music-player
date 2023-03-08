@@ -70,14 +70,9 @@ const AudioPlayer = forwardRef<ReactH5AudioPlayer, AudioPlayerProps>(
     }, []);
 
     useEffect(() => {
-      if (
-        album &&
-        (ref as RefObject<ReactH5AudioPlayer>)?.current?.audio?.current &&
-        "mediaSession" in navigator
-      ) {
+      if (album && "mediaSession" in navigator) {
         const { track_title, album_title, album_artist, album_image } = album;
-        const audio = (ref as RefObject<ReactH5AudioPlayer>)?.current?.audio
-          ?.current;
+
         navigator.mediaSession.metadata = new MediaMetadata({
           title: track_title,
           artist: album_artist,
@@ -90,7 +85,16 @@ const AudioPlayer = forwardRef<ReactH5AudioPlayer, AudioPlayerProps>(
             },
           ],
         });
+      }
+    }, [album]);
 
+    useEffect(() => {
+      if (
+        (ref as RefObject<ReactH5AudioPlayer>)?.current?.audio?.current &&
+        "mediaSession" in navigator
+      ) {
+        const audio = (ref as RefObject<ReactH5AudioPlayer>)?.current?.audio
+          ?.current;
         navigator.mediaSession.setActionHandler("play", () => {
           audio?.play();
         });
@@ -104,7 +108,7 @@ const AudioPlayer = forwardRef<ReactH5AudioPlayer, AudioPlayerProps>(
           handleNextTrack();
         });
       }
-    }, [album, handlePrevTrack, handleNextTrack]);
+    }, [handlePrevTrack, handleNextTrack]);
 
     return (
       <ReactH5AudioPlayer
