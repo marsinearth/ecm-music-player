@@ -11,15 +11,6 @@ type AlbumCardProps = Album & {
   setAlbum: (index: number) => void;
 };
 
-const AlbumCardSpinner = () => (
-  <Spinner
-    style={{
-      maxWidth: 400,
-      maxHeight: 400,
-    }}
-  />
-);
-
 function AlbumCard({
   album_title,
   track_title,
@@ -41,7 +32,9 @@ function AlbumCard({
       <LazyLoadImage
         src={album_image}
         alt={album_title}
-        placeholder={<AlbumCardSpinner />}
+        width="100%"
+        height="100%"
+        placeholder={<Spinner />}
       />
 
       <div
