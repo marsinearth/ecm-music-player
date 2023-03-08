@@ -8,7 +8,7 @@ import {
 } from "react";
 import { default as ReactH5AudioPlayer, RHAP_UI } from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
-import { LazyLoadImage } from "react-lazy-load-image-component";
+import LazyLoad from "react-lazyload";
 import "styles/AudioPlayer.css";
 import type { Album } from "typings/album";
 import Spinner from "./LoadingSpinner";
@@ -50,14 +50,9 @@ const AlbumCover = ({
           <Spinner />
         ) : (
           <>
-            <LazyLoadImage
-              src={album_image}
-              alt={album_title}
-              width="100%"
-              height="100%"
-              placeholder={<Spinner />}
-              onClick={onOpenModal}
-            />
+            <LazyLoad height="100%" placeholder={<Spinner />} once>
+              <img src={album_image} alt={album_title} onClick={onOpenModal} />
+            </LazyLoad>
             <div className="library" />
           </>
         )}

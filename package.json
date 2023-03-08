@@ -12,7 +12,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-h5-audio-player": "^3.8.6",
-    "react-lazy-load-image-component": "^1.5.6",
+    "react-lazyload": "^3.2.0",
     "react-modal": "^3.16.1",
     "react-scripts": "5.0.1",
     "react-tooltip": "^5.8.3",
@@ -59,13 +59,15 @@
   "packageManager": "yarn@3.4.1",
   "devDependencies": {
     "@types/eslint": "^8",
-    "@types/react-lazy-load-image-component": "^1.5.2",
+    "@types/prop-types": "^15",
+    "@types/react-lazyload": "^3.2.0",
     "@types/react-modal": "^3",
     "@types/react-tooltip": "^4.2.4",
     "@typescript-eslint/eslint-plugin": "latest",
     "@typescript-eslint/parser": "latest",
     "eslint": "latest",
     "eslint-config-prettier": "^8.6.0",
-    "eslint-plugin-react": "latest"
+    "eslint-plugin-react": "latest",
+    "prop-types": "^15.8.1"
   }
 }

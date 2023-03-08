@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { LazyLoadImage } from "react-lazy-load-image-component";
+import LazyLoad from "react-lazyload";
 import "styles/AlbumCard.css";
 import type { Album } from "typings/album";
 import Spinner from "./LoadingSpinner";
@@ -22,28 +22,23 @@ function AlbumCard({
   setAlbum,
 }: AlbumCardProps) {
   return (
-    <div
-      data-tooltip-content={`${album_artist}: ${track_title}`}
-      className="albumCardContainer"
-      onClick={() => {
-        setAlbum(index);
-      }}
-    >
-      <LazyLoadImage
-        src={album_image}
-        alt={album_title}
-        width="100%"
-        height="100%"
-        placeholder={<Spinner />}
-      />
-
+    <LazyLoad height="100%" placeholder={<Spinner />} once debounce={100}>
       <div
-        className="albumCardPlayingNowOverlay"
-        style={{ display: selected ? "flex" : "none" }}
+        data-tooltip-content={`${album_artist}: ${track_title}`}
+        className="albumCardContainer"
+        onClick={() => {
+          setAlbum(index);
+        }}
       >
-        {playing ? "Now Playing" : "Selected"}
+        <img src={album_image} alt={album_title} />
+        <div
+          className="albumCardPlayingNowOverlay"
+          style={{ display: selected ? "flex" : "none" }}
+        >
+          {playing ? "Now Playing" : "Selected"}
+        </div>
       </div>
-    </div>
+    </LazyLoad>
   );
 }
 

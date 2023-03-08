@@ -23,7 +23,8 @@
   cursor: default;
 }
 
-.albumCardContainer > img {
+.albumCardContainer img {
+  width: 100%;
   max-width: 400px;
   max-height: 400px;
   object-fit: cover;
@@ -31,21 +32,21 @@
 
 @media screen and (min-width: 769px) {
   .albumCardContainer {
-    width: calc((100vw - 22px) / 5);
-    height: calc((100vw - 22px) / 5);
+    width: calc((100vw - 27px) / 5);
+    height: calc((100vw - 27px) / 5);
   }
 }
 
 @media screen and (max-width: 768px) {
   .albumCardContainer {
-    width: calc((100vw - 22px) / 3);
-    height: calc((100vw - 22px) / 3);
+    width: calc((100vw - 27px) / 3);
+    height: calc((100vw - 27px) / 3);
   }
 }
 
 @media screen and (max-width: 480px) {
   .albumCardContainer {
-    width: calc((100vw - 22px) / 2);
-    height: calc((100vw - 22px) / 2);
+    width: calc((100vw - 27px) / 2);
+    height: calc((100vw - 27px) / 2);
   }
 }
