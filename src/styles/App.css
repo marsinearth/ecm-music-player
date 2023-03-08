@@ -10,19 +10,6 @@
   align-items: center;
 }
 
-section::-webkit-scrollbar {
-  width: 5px;
-}
-section::-webkit-scrollbar-thumb {
-  background-color: slategrey;
-  border-radius: 5px;
-}
-section::-webkit-scrollbar-track {
-  background-color: lightgrey;
-  border-radius: 5px;
-  box-shadow: inset 0px 0px 5px white;
-}
-
 .audioPlayerContainer {
   display: flex;
   flex-direction: column;

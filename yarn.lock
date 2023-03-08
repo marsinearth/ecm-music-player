@@ -2821,7 +2821,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/prop-types@npm:*":
+"@types/prop-types@npm:*, @types/prop-types@npm:^15":
   version: 15.7.5
   resolution: "@types/prop-types@npm:15.7.5"
   checksum: 5b43b8b15415e1f298243165f1d44390403bb2bd42e662bca3b5b5633fdd39c938e91b7fce3a9483699db0f7a715d08cef220c121f723a634972fdf596aec980
@@ -2858,13 +2858,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-lazy-load-image-component@npm:^1.5.2":
-  version: 1.5.2
-  resolution: "@types/react-lazy-load-image-component@npm:1.5.2"
+"@types/react-lazyload@npm:^3.2.0":
+  version: 3.2.0
+  resolution: "@types/react-lazyload@npm:3.2.0"
   dependencies:
     "@types/react": "*"
-    csstype: ^3.0.2
-  checksum: f52dfd2eb58d14c3cb7ba4ca5938a10d4925bee7fa8d654f13c8af36e81d9fce3ebce7d51c29f1f78e09134244e0b91607a4b8051a6eb33d63c4355685442d08
+  checksum: bb9399481be2b1f4eaef67d24497951a5e5d2a3cfef6a24157da71d2b8f0abbb0ab1d72a89c05705bb8b5dc1c980a0ee4af3d5c435a6533da240836e8fd410b8
   languageName: node
   linkType: hard
 
@@ -5344,9 +5343,10 @@ __metadata:
     "@testing-library/user-event": ^13.5.0
     "@types/eslint": ^8
     "@types/node": ^17.0.45
+    "@types/prop-types": ^15
     "@types/react": ^18.0.28
     "@types/react-dom": ^18.0.11
-    "@types/react-lazy-load-image-component": ^1.5.2
+    "@types/react-lazyload": ^3.2.0
     "@types/react-modal": ^3
     "@types/react-tooltip": ^4.2.4
     "@typescript-eslint/eslint-plugin": latest
@@ -5354,10 +5354,11 @@ __metadata:
     eslint: latest
     eslint-config-prettier: ^8.6.0
     eslint-plugin-react: latest
+    prop-types: ^15.8.1
     react: ^18.2.0
     react-dom: ^18.2.0
     react-h5-audio-player: ^3.8.6
-    react-lazy-load-image-component: ^1.5.6
+    react-lazyload: ^3.2.0
     react-modal: ^3.16.1
     react-scripts: 5.0.1
     react-tooltip: ^5.8.3
@@ -8552,13 +8553,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash.throttle@npm:^4.1.1":
-  version: 4.1.1
-  resolution: "lodash.throttle@npm:4.1.1"
-  checksum: 129c0a28cee48b348aef146f638ef8a8b197944d4e9ec26c1890c19d9bf5a5690fe11b655c77a4551268819b32d27f4206343e30c78961f60b561b8608c8c805
-  languageName: node
-  linkType: hard
-
 "lodash.uniq@npm:^4.5.0":
   version: 4.5.0
   resolution: "lodash.uniq@npm:4.5.0"
@@ -10702,16 +10696,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-lazy-load-image-component@npm:^1.5.6":
-  version: 1.5.6
-  resolution: "react-lazy-load-image-component@npm:1.5.6"
-  dependencies:
-    lodash.debounce: ^4.0.8
-    lodash.throttle: ^4.1.1
+"react-lazyload@npm:^3.2.0":
+  version: 3.2.0
+  resolution: "react-lazyload@npm:3.2.0"
   peerDependencies:
-    react: ^15.x.x || ^16.x.x || ^17.x.x || ^18.x.x
-    react-dom: ^15.x.x || ^16.x.x || ^17.x.x || ^18.x.x
-  checksum: 2db8dd56e5926c4831e58b05650e310fd8eabc24607716ad7ffda3e0f6b325434edb098ad27068ea8db7f42fec37bc17eaffbaf562a322e6f1ace16dcc3d5422
+    react: ^0.14.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
+    react-dom: ^0.14.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
+  checksum: 871a88c698a80c53ead85c293b493ac67c94e5980590094128c371e3f1e3d5bc17841ead1e7830771c87ece7fe677a6c9c323f3e6ce392a5f6f0328a36c38fe7
   languageName: node
   linkType: hard
 
