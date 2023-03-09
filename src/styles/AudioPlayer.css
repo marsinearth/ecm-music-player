@@ -109,6 +109,21 @@
   font-weight: bold;
 }
 
+.copyright {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding: 12px 5px 0;
+  color: #dddddd;
+  font-size: 0.5rem;
+}
+
+.copyright > a {
+  padding-left: 3px;
+  color: #868686;
+  font-weight: bold;
+}
+
 @media (prefers-color-scheme: dark) {
   .rhap_container {
     background-color: #202b38;

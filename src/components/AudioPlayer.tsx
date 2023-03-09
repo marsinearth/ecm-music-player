@@ -37,6 +37,20 @@ const LibraryButton = ({ visible, onOpenModal }: LibraryButtonProps) => {
   return <div className="libraryButton" onClick={onOpenModal} />;
 };
 
+const CopyRightText = () => (
+  <div className="copyright">
+    all rights reserved to
+    <a
+      href="https://ecmrecords.com/"
+      title="ECM Records"
+      rel="noopener noreferrer nofollow"
+      target="_blank"
+    >
+      ECM Records
+    </a>
+  </div>
+);
+
 const AlbumCover = ({
   track_title,
   album_image,
@@ -115,6 +129,7 @@ const AudioPlayer = forwardRef<ReactH5AudioPlayer, AudioPlayerProps>(
         src={url}
         ref={ref}
         header={<AlbumCover {...albumProps} onOpenModal={onOpenModal} />}
+        footer={<CopyRightText />}
         onClickNext={handleNextTrack}
         onClickPrevious={handlePrevTrack}
         onEnded={handleNextTrack}
