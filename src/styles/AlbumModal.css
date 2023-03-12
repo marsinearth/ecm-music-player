@@ -22,13 +22,12 @@ section {
 .closeBtn {
   position: fixed;
   right: 15px;
-  top: 12px;
+  top: 15px;
   width: 50px;
   height: 50px;
-  border-radius: 40px;
-  box-shadow: 3px 3px 3px slategray;
   cursor: pointer;
-  background: center / 50% no-repeat url("../media/close-ico.png") lightgray;
+  border-radius: 40px;
+  background: center / 125% no-repeat url("../media/close-icon.svg") white;
   z-index: 2;
 }
 
