@@ -11,10 +11,11 @@ import "react-h5-audio-player/lib/styles.css";
 import LazyLoad from "react-lazyload";
 import "styles/AudioPlayer.css";
 import type { Album } from "typings/album";
-import Spinner from "./LoadingSpinner";
+import Spinner, { WirelessDisabled } from "./LoadingSpinner";
 
 type AudioPlayerProps = {
   album: Album;
+  backendAvail: boolean;
   setModalOpen: Dispatch<SetStateAction<boolean>>;
   handlePrevTrack: () => void;
   handleNextTrack: () => void;
@@ -26,6 +27,7 @@ type LibraryButtonProps = {
 };
 
 type AlbumCoverProps = Partial<Omit<Album, "url">> &
+  Pick<AudioPlayerProps, "backendAvail"> &
   Pick<LibraryButtonProps, "onOpenModal">;
 
 const LoopOneBadge = () => <div className="playerLoopOneBadge">1</div>;
@@ -55,12 +57,15 @@ const AlbumCover = ({
   track_title,
   album_image,
   album_title,
+  backendAvail,
   onOpenModal,
 }: AlbumCoverProps) => {
   return (
     <div className="playerInfoContainer">
       <div className="albumCover">
-        {!album_image ? (
+        {!backendAvail ? (
+          <WirelessDisabled />
+        ) : !album_image ? (
           <Spinner />
         ) : (
           <>
@@ -76,7 +81,10 @@ const AlbumCover = ({
   );
 };
 const AudioPlayer = forwardRef<ReactH5AudioPlayer, AudioPlayerProps>(
-  ({ album, setModalOpen, handlePrevTrack, handleNextTrack }, ref) => {
+  (
+    { album, backendAvail, setModalOpen, handlePrevTrack, handleNextTrack },
+    ref
+  ) => {
     const { url, ...albumProps } = album ?? {};
 
     const onOpenModal = useCallback(() => {
@@ -128,7 +136,13 @@ const AudioPlayer = forwardRef<ReactH5AudioPlayer, AudioPlayerProps>(
       <ReactH5AudioPlayer
         src={url}
         ref={ref}
-        header={<AlbumCover {...albumProps} onOpenModal={onOpenModal} />}
+        header={
+          <AlbumCover
+            {...albumProps}
+            backendAvail={backendAvail}
+            onOpenModal={onOpenModal}
+          />
+        }
         footer={<CopyRightText />}
         onClickNext={handleNextTrack}
         onClickPrevious={handlePrevTrack}
