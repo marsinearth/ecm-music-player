@@ -18,20 +18,17 @@
   object-fit: cover;
   cursor: pointer;
   padding-bottom: 10px;
-  border-bottom: 1px solid rgb(0 0 0 / 10%);
 }
 
 .albumCover .library {
   position: absolute;
   top: 3%;
   right: 3%;
-  width: 50px;
-  height: 50px;
-  border-radius: 25px;
-  background: center / 65% no-repeat url("../media/music-collection.svg")
-    #dddddd;
+  width: 26px;
+  height: 26px;
+  background: center / 100% no-repeat url("../media/music-collection.svg")
+    transparent;
   pointer-events: none;
-  box-shadow: 1px 1px 5px #868686;
 }
 
 .libraryButton {
@@ -45,6 +42,7 @@
 
 .rhap_container {
   padding: 10px 0;
+  box-shadow: none;
 }
 
 .rhap_main.rhap_stacked-reverse {
@@ -127,7 +125,6 @@
 @media (prefers-color-scheme: dark) {
   .rhap_container {
     background-color: #202b38;
-    box-shadow: 0 0 3px 0 rgb(255 255 255 / 20%);
   }
 
   .rhap_time {
