@@ -14,7 +14,7 @@ async function fetchAPI() {
 
 function App() {
   const playerRef = useRef<H5AudioPlayer | null>(null);
-  const [backendAvail, setBackendAvail] = useState(true);
+  const [disconnected, setDisconnected] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [samplesList, setSamplesList] = useState<Album[]>([]);
@@ -42,7 +42,7 @@ function App() {
         });
       })
       .catch((err) => {
-        setBackendAvail(false);
+        setDisconnected(true);
         console.warn({ err });
       });
   }, []);
@@ -54,7 +54,7 @@ function App() {
           <AudioPlayer
             ref={playerRef}
             album={samplesList[selectedIndex]}
-            backendAvail={backendAvail}
+            disconnected={disconnected}
             setModalOpen={setModalOpen}
             handlePrevTrack={handlePrevTrack}
             handleNextTrack={handleNextTrack}
@@ -64,6 +64,7 @@ function App() {
       <AlbumsModal
         ref={playerRef}
         modalOpen={modalOpen}
+        disconnected={disconnected}
         setModalOpen={setModalOpen}
         samplesList={samplesList}
         selectedIndex={selectedIndex}

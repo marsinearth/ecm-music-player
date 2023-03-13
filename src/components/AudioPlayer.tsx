@@ -1,21 +1,20 @@
 import {
-  Dispatch,
   forwardRef,
-  RefObject,
-  SetStateAction,
   useCallback,
   useEffect,
+  type Dispatch,
+  type RefObject,
+  type SetStateAction,
 } from "react";
 import { default as ReactH5AudioPlayer, RHAP_UI } from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
-import LazyLoad from "react-lazyload";
 import "styles/AudioPlayer.css";
 import type { Album } from "typings/album";
-import Spinner, { WirelessDisabled } from "./LoadingSpinner";
+import ImageLoader from "./ImageLoader";
 
 type AudioPlayerProps = {
   album: Album;
-  backendAvail: boolean;
+  disconnected: boolean;
   setModalOpen: Dispatch<SetStateAction<boolean>>;
   handlePrevTrack: () => void;
   handleNextTrack: () => void;
@@ -27,7 +26,7 @@ type LibraryButtonProps = {
 };
 
 type AlbumCoverProps = Partial<Omit<Album, "url">> &
-  Pick<AudioPlayerProps, "backendAvail"> &
+  Pick<AudioPlayerProps, "disconnected"> &
   Pick<LibraryButtonProps, "onOpenModal">;
 
 const LoopOneBadge = () => <div className="playerLoopOneBadge">1</div>;
@@ -57,32 +56,27 @@ const AlbumCover = ({
   track_title,
   album_image,
   album_title,
-  backendAvail,
+  disconnected,
   onOpenModal,
 }: AlbumCoverProps) => {
   return (
     <div className="playerInfoContainer">
-      <div className="albumCover">
-        {!backendAvail ? (
-          <WirelessDisabled />
-        ) : !album_image ? (
-          <Spinner />
-        ) : (
-          <>
-            <LazyLoad height="100%" placeholder={<Spinner />} once>
-              <img src={album_image} alt={album_title} onClick={onOpenModal} />
-            </LazyLoad>
-            <div className="library" />
-          </>
-        )}
-      </div>
+      <ImageLoader
+        src={album_image}
+        alt={album_title}
+        disconnected={disconnected}
+        onClick={onOpenModal}
+        style={{ maxWidth: 430, maxHeight: 430 }}
+      >
+        <div className="library" />
+      </ImageLoader>
       <div className="title">{track_title}</div>
     </div>
   );
 };
 const AudioPlayer = forwardRef<ReactH5AudioPlayer, AudioPlayerProps>(
   (
-    { album, backendAvail, setModalOpen, handlePrevTrack, handleNextTrack },
+    { album, disconnected, setModalOpen, handlePrevTrack, handleNextTrack },
     ref
   ) => {
     const { url, ...albumProps } = album ?? {};
@@ -139,7 +133,7 @@ const AudioPlayer = forwardRef<ReactH5AudioPlayer, AudioPlayerProps>(
         header={
           <AlbumCover
             {...albumProps}
-            backendAvail={backendAvail}
+            disconnected={disconnected}
             onOpenModal={onOpenModal}
           />
         }

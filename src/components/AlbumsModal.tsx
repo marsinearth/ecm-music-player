@@ -1,21 +1,22 @@
 import {
-  Dispatch,
   forwardRef,
-  RefObject,
-  SetStateAction,
   useCallback,
+  type Dispatch,
+  type RefObject,
+  type SetStateAction,
 } from "react";
 import H5AudioPlayer from "react-h5-audio-player";
 import Modal from "react-modal";
 import { Tooltip } from "react-tooltip";
 import "styles/AlbumModal.css";
-import { Album } from "typings/album";
+import type { Album } from "typings/album";
 import AlbumCard from "./AlbumCard";
 
 Modal.setAppElement("#root");
 
 type AlbumsModalProps = {
   modalOpen: boolean;
+  disconnected: boolean;
   setModalOpen: Dispatch<SetStateAction<boolean>>;
   samplesList: Album[];
   selectedIndex: number;
@@ -41,7 +42,14 @@ const CloseButton = ({ onCloseModal }: CloseButtonProps) => {
 
 const AlbumsModal = forwardRef<H5AudioPlayer, AlbumsModalProps>(
   (
-    { modalOpen, setModalOpen, samplesList, selectedIndex, setSelectedIndex },
+    {
+      modalOpen,
+      disconnected,
+      setModalOpen,
+      samplesList,
+      selectedIndex,
+      setSelectedIndex,
+    },
     playerRef
   ) => {
     const onCloseModal = useCallback(() => {
@@ -70,6 +78,7 @@ const AlbumsModal = forwardRef<H5AudioPlayer, AlbumsModalProps>(
               index={i}
               selected={i === selectedIndex}
               playing={playing}
+              disconnected={disconnected}
               setAlbum={setAlbum}
             />
           ))}

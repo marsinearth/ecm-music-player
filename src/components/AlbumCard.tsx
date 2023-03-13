@@ -1,11 +1,11 @@
 import { memo } from "react";
-import LazyLoad from "react-lazyload";
 import "styles/AlbumCard.css";
 import type { Album } from "typings/album";
-import Spinner from "./LoadingSpinner";
+import ImageLoader from "./ImageLoader";
 
 type AlbumCardProps = Album & {
   index: number;
+  disconnected: boolean;
   selected: boolean;
   playing: boolean;
   setAlbum: (index: number) => void;
@@ -19,26 +19,28 @@ function AlbumCard({
   index,
   selected,
   playing,
+  disconnected,
   setAlbum,
 }: AlbumCardProps) {
   return (
-    <LazyLoad height="100%" placeholder={<Spinner />} once debounce={100}>
+    <ImageLoader
+      className="albumCardContainer"
+      src={album_image}
+      alt={album_title}
+      disconnected={disconnected}
+      data-tooltip-content={`${album_artist}: ${track_title}`}
+      style={{ maxWidth: 400, maxHeight: 400, border: "1px outset #dddddd" }}
+      onClick={() => {
+        setAlbum(index);
+      }}
+    >
       <div
-        data-tooltip-content={`${album_artist}: ${track_title}`}
-        className="albumCardContainer"
-        onClick={() => {
-          setAlbum(index);
-        }}
+        className="albumCardPlayingNowOverlay"
+        style={{ display: selected ? "flex" : "none" }}
       >
-        <img src={album_image} alt={album_title} />
-        <div
-          className="albumCardPlayingNowOverlay"
-          style={{ display: selected ? "flex" : "none" }}
-        >
-          {playing ? "Now Playing" : "Selected"}
-        </div>
+        {playing ? "Now Playing" : "Selected"}
       </div>
-    </LazyLoad>
+    </ImageLoader>
   );
 }
 
