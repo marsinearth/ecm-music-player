@@ -1,5 +1,4 @@
 import {
-  memo,
   useEffect,
   useMemo,
   useState,
@@ -24,8 +23,6 @@ function ImageLoader({
   ...props
 }: ImageLoaderProps) {
   const [loaded, setLoaded] = useState(false);
-
-  console.log({ src: props.src });
 
   const handleOnLoad = () => {
     setLoaded(true);
@@ -54,11 +51,11 @@ function ImageLoader({
       className={`imgContainer${!className ? "" : ` ${className}`}`}
       style={{ maxWidth, maxHeight }}
     >
-      <img {...props} loading="lazy" onLoad={handleOnLoad} style={imageStyle} />
+      <img {...props} onLoad={handleOnLoad} style={imageStyle} />
       {disconnected ? <WirelessDisabled /> : !loaded && <Spinner />}
       {loaded && children}
     </div>
   );
 }
 
-export default memo(ImageLoader);
+export default ImageLoader;
