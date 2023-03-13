@@ -83,6 +83,10 @@ const AudioPlayer = forwardRef<ReactH5AudioPlayer, AudioPlayerProps>(
 
     const onOpenModal = useCallback(() => {
       setModalOpen(true);
+      const body = document.querySelector("body");
+      if (body) {
+        body.style.overflow = "hidden";
+      }
     }, []);
 
     useEffect(() => {
