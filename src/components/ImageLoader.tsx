@@ -1,4 +1,5 @@
 import {
+  memo,
   useEffect,
   useMemo,
   useState,
@@ -15,7 +16,7 @@ type ImageLoaderProps = PropsWithChildren<
   }
 >;
 
-export default function ImageLoader({
+function ImageLoader({
   style,
   disconnected,
   children,
@@ -59,3 +60,5 @@ export default function ImageLoader({
     </div>
   );
 }
+
+export default memo(ImageLoader);
