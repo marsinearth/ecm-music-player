@@ -6,8 +6,8 @@
 
 .library {
   position: absolute;
-  top: 3%;
-  right: 3%;
+  bottom: 3%;
+  left: 3%;
   width: 26px;
   height: 26px;
   background: center / 100% no-repeat url("../media/music-collection.svg")
