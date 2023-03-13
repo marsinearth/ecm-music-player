@@ -14,21 +14,21 @@
 
 @media screen and (min-width: 769px) {
   .imgContainer.albumCardContainer {
-    width: calc((100vw - 27px) / 5);
-    height: calc((100vw - 27px) / 5);
+    width: calc((100vw - 24px) / 5);
+    height: calc((100vw - 24px) / 5);
   }
 }
 
 @media screen and (max-width: 768px) {
   .imgContainer.albumCardContainer {
-    width: calc((100vw - 27px) / 3);
-    height: calc((100vw - 27px) / 3);
+    width: calc((100vw - 24px) / 3);
+    height: calc((100vw - 24px) / 3);
   }
 }
 
 @media screen and (max-width: 480px) {
   .imgContainer.albumCardContainer {
-    width: calc((100vw - 27px) / 2);
-    height: calc((100vw - 27px) / 2);
+    width: calc((100vw - 24px) / 2);
+    height: calc((100vw - 24px) / 2);
   }
 }

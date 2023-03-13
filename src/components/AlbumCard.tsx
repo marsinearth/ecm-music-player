@@ -22,6 +22,14 @@ function AlbumCard({
   disconnected,
   setAlbum,
 }: AlbumCardProps) {
+  const onCloseModal = () => {
+    setAlbum(index);
+    const body = document.querySelector("body");
+    if (body) {
+      body.style.overflow = "auto";
+    }
+  };
+
   return (
     <ImageLoader
       className="albumCardContainer"
@@ -30,9 +38,7 @@ function AlbumCard({
       disconnected={disconnected}
       data-tooltip-content={`${album_artist}: ${track_title}`}
       style={{ maxWidth: 400, maxHeight: 400, border: "1px outset #dddddd" }}
-      onClick={() => {
-        setAlbum(index);
-      }}
+      onClick={onCloseModal}
     >
       <div
         className="albumCardPlayingNowOverlay"
