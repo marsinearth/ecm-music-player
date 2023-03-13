@@ -2821,7 +2821,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/prop-types@npm:*, @types/prop-types@npm:^15":
+"@types/prop-types@npm:*":
   version: 15.7.5
   resolution: "@types/prop-types@npm:15.7.5"
   checksum: 5b43b8b15415e1f298243165f1d44390403bb2bd42e662bca3b5b5633fdd39c938e91b7fce3a9483699db0f7a715d08cef220c121f723a634972fdf596aec980
@@ -2855,15 +2855,6 @@ __metadata:
   dependencies:
     "@types/react": "*"
   checksum: 579691e4d5ec09688087568037c35edf8cfb1ab3e07f6c60029280733ee7b5c06d66df6fcc90786702c93ac8cb13bc7ff16c79ddfc75d082938fbaa36e1cdbf4
-  languageName: node
-  linkType: hard
-
-"@types/react-lazyload@npm:^3.2.0":
-  version: 3.2.0
-  resolution: "@types/react-lazyload@npm:3.2.0"
-  dependencies:
-    "@types/react": "*"
-  checksum: bb9399481be2b1f4eaef67d24497951a5e5d2a3cfef6a24157da71d2b8f0abbb0ab1d72a89c05705bb8b5dc1c980a0ee4af3d5c435a6533da240836e8fd410b8
   languageName: node
   linkType: hard
 
@@ -5343,10 +5334,8 @@ __metadata:
     "@testing-library/user-event": ^13.5.0
     "@types/eslint": ^8
     "@types/node": ^17.0.45
-    "@types/prop-types": ^15
     "@types/react": ^18.0.28
     "@types/react-dom": ^18.0.11
-    "@types/react-lazyload": ^3.2.0
     "@types/react-modal": ^3
     "@types/react-tooltip": ^4.2.4
     "@typescript-eslint/eslint-plugin": latest
@@ -5354,11 +5343,9 @@ __metadata:
     eslint: latest
     eslint-config-prettier: ^8.6.0
     eslint-plugin-react: latest
-    prop-types: ^15.8.1
     react: ^18.2.0
     react-dom: ^18.2.0
     react-h5-audio-player: ^3.8.6
-    react-lazyload: ^3.2.0
     react-modal: ^3.16.1
     react-scripts: 5.0.1
     react-tooltip: ^5.8.3
@@ -10693,16 +10680,6 @@ __metadata:
   version: 18.2.0
   resolution: "react-is@npm:18.2.0"
   checksum: e72d0ba81b5922759e4aff17e0252bd29988f9642ed817f56b25a3e217e13eea8a7f2322af99a06edb779da12d5d636e9fda473d620df9a3da0df2a74141d53e
-  languageName: node
-  linkType: hard
-
-"react-lazyload@npm:^3.2.0":
-  version: 3.2.0
-  resolution: "react-lazyload@npm:3.2.0"
-  peerDependencies:
-    react: ^0.14.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
-    react-dom: ^0.14.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
-  checksum: 871a88c698a80c53ead85c293b493ac67c94e5980590094128c371e3f1e3d5bc17841ead1e7830771c87ece7fe677a6c9c323f3e6ce392a5f6f0328a36c38fe7
   languageName: node
   linkType: hard
 

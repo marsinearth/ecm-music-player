@@ -33,10 +33,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@testing-library/user-event", "virtual:096f3e41031b98aa18a3dd5df3ab2a2f793fde5edf54d839da74245fabebec7e35aa1e49116ebd57d4d321695278ad051779b0c0565e48cf9dbd51ff7df7035c#npm:13.5.0"],\
             ["@types/eslint", "npm:8.21.1"],\
             ["@types/node", "npm:17.0.45"],\
-            ["@types/prop-types", "npm:15.7.5"],\
             ["@types/react", "npm:18.0.28"],\
             ["@types/react-dom", "npm:18.0.11"],\
-            ["@types/react-lazyload", "npm:3.2.0"],\
             ["@types/react-modal", "npm:3.13.1"],\
             ["@types/react-tooltip", "npm:4.2.4"],\
             ["@typescript-eslint/eslint-plugin", "virtual:096f3e41031b98aa18a3dd5df3ab2a2f793fde5edf54d839da74245fabebec7e35aa1e49116ebd57d4d321695278ad051779b0c0565e48cf9dbd51ff7df7035c#npm:5.54.0"],\
@@ -44,11 +42,9 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint", "npm:8.35.0"],\
             ["eslint-config-prettier", "virtual:096f3e41031b98aa18a3dd5df3ab2a2f793fde5edf54d839da74245fabebec7e35aa1e49116ebd57d4d321695278ad051779b0c0565e48cf9dbd51ff7df7035c#npm:8.6.0"],\
             ["eslint-plugin-react", "virtual:096f3e41031b98aa18a3dd5df3ab2a2f793fde5edf54d839da74245fabebec7e35aa1e49116ebd57d4d321695278ad051779b0c0565e48cf9dbd51ff7df7035c#npm:7.32.2"],\
-            ["prop-types", "npm:15.8.1"],\
             ["react", "npm:18.2.0"],\
             ["react-dom", "virtual:096f3e41031b98aa18a3dd5df3ab2a2f793fde5edf54d839da74245fabebec7e35aa1e49116ebd57d4d321695278ad051779b0c0565e48cf9dbd51ff7df7035c#npm:18.2.0"],\
             ["react-h5-audio-player", "virtual:096f3e41031b98aa18a3dd5df3ab2a2f793fde5edf54d839da74245fabebec7e35aa1e49116ebd57d4d321695278ad051779b0c0565e48cf9dbd51ff7df7035c#npm:3.8.6"],\
-            ["react-lazyload", "virtual:096f3e41031b98aa18a3dd5df3ab2a2f793fde5edf54d839da74245fabebec7e35aa1e49116ebd57d4d321695278ad051779b0c0565e48cf9dbd51ff7df7035c#npm:3.2.0"],\
             ["react-modal", "virtual:096f3e41031b98aa18a3dd5df3ab2a2f793fde5edf54d839da74245fabebec7e35aa1e49116ebd57d4d321695278ad051779b0c0565e48cf9dbd51ff7df7035c#npm:3.16.1"],\
             ["react-scripts", "virtual:096f3e41031b98aa18a3dd5df3ab2a2f793fde5edf54d839da74245fabebec7e35aa1e49116ebd57d4d321695278ad051779b0c0565e48cf9dbd51ff7df7035c#npm:5.0.1"],\
             ["react-tooltip", "virtual:096f3e41031b98aa18a3dd5df3ab2a2f793fde5edf54d839da74245fabebec7e35aa1e49116ebd57d4d321695278ad051779b0c0565e48cf9dbd51ff7df7035c#npm:5.8.3"],\
@@ -4658,16 +4654,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
-      ["@types/react-lazyload", [\
-        ["npm:3.2.0", {\
-          "packageLocation": "./.yarn/cache/@types-react-lazyload-npm-3.2.0-9f1e5c5b41-bb9399481b.zip/node_modules/@types/react-lazyload/",\
-          "packageDependencies": [\
-            ["@types/react-lazyload", "npm:3.2.0"],\
-            ["@types/react", "npm:18.0.28"]\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
       ["@types/react-modal", [\
         ["npm:3.13.1", {\
           "packageLocation": "./.yarn/cache/@types-react-modal-npm-3.13.1-6bb3eb42bb-b0ad403e00.zip/node_modules/@types/react-modal/",\
@@ -7838,10 +7824,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@testing-library/user-event", "virtual:096f3e41031b98aa18a3dd5df3ab2a2f793fde5edf54d839da74245fabebec7e35aa1e49116ebd57d4d321695278ad051779b0c0565e48cf9dbd51ff7df7035c#npm:13.5.0"],\
             ["@types/eslint", "npm:8.21.1"],\
             ["@types/node", "npm:17.0.45"],\
-            ["@types/prop-types", "npm:15.7.5"],\
             ["@types/react", "npm:18.0.28"],\
             ["@types/react-dom", "npm:18.0.11"],\
-            ["@types/react-lazyload", "npm:3.2.0"],\
             ["@types/react-modal", "npm:3.13.1"],\
             ["@types/react-tooltip", "npm:4.2.4"],\
             ["@typescript-eslint/eslint-plugin", "virtual:096f3e41031b98aa18a3dd5df3ab2a2f793fde5edf54d839da74245fabebec7e35aa1e49116ebd57d4d321695278ad051779b0c0565e48cf9dbd51ff7df7035c#npm:5.54.0"],\
@@ -7849,11 +7833,9 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint", "npm:8.35.0"],\
             ["eslint-config-prettier", "virtual:096f3e41031b98aa18a3dd5df3ab2a2f793fde5edf54d839da74245fabebec7e35aa1e49116ebd57d4d321695278ad051779b0c0565e48cf9dbd51ff7df7035c#npm:8.6.0"],\
             ["eslint-plugin-react", "virtual:096f3e41031b98aa18a3dd5df3ab2a2f793fde5edf54d839da74245fabebec7e35aa1e49116ebd57d4d321695278ad051779b0c0565e48cf9dbd51ff7df7035c#npm:7.32.2"],\
-            ["prop-types", "npm:15.8.1"],\
             ["react", "npm:18.2.0"],\
             ["react-dom", "virtual:096f3e41031b98aa18a3dd5df3ab2a2f793fde5edf54d839da74245fabebec7e35aa1e49116ebd57d4d321695278ad051779b0c0565e48cf9dbd51ff7df7035c#npm:18.2.0"],\
             ["react-h5-audio-player", "virtual:096f3e41031b98aa18a3dd5df3ab2a2f793fde5edf54d839da74245fabebec7e35aa1e49116ebd57d4d321695278ad051779b0c0565e48cf9dbd51ff7df7035c#npm:3.8.6"],\
-            ["react-lazyload", "virtual:096f3e41031b98aa18a3dd5df3ab2a2f793fde5edf54d839da74245fabebec7e35aa1e49116ebd57d4d321695278ad051779b0c0565e48cf9dbd51ff7df7035c#npm:3.2.0"],\
             ["react-modal", "virtual:096f3e41031b98aa18a3dd5df3ab2a2f793fde5edf54d839da74245fabebec7e35aa1e49116ebd57d4d321695278ad051779b0c0565e48cf9dbd51ff7df7035c#npm:3.16.1"],\
             ["react-scripts", "virtual:096f3e41031b98aa18a3dd5df3ab2a2f793fde5edf54d839da74245fabebec7e35aa1e49116ebd57d4d321695278ad051779b0c0565e48cf9dbd51ff7df7035c#npm:5.0.1"],\
             ["react-tooltip", "virtual:096f3e41031b98aa18a3dd5df3ab2a2f793fde5edf54d839da74245fabebec7e35aa1e49116ebd57d4d321695278ad051779b0c0565e48cf9dbd51ff7df7035c#npm:5.8.3"],\
@@ -14855,32 +14837,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/react-is-npm-18.2.0-0cc5edb910-e72d0ba81b.zip/node_modules/react-is/",\
           "packageDependencies": [\
             ["react-is", "npm:18.2.0"]\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
-      ["react-lazyload", [\
-        ["npm:3.2.0", {\
-          "packageLocation": "./.yarn/cache/react-lazyload-npm-3.2.0-5a95ee4bd0-871a88c698.zip/node_modules/react-lazyload/",\
-          "packageDependencies": [\
-            ["react-lazyload", "npm:3.2.0"]\
-          ],\
-          "linkType": "SOFT"\
-        }],\
-        ["virtual:096f3e41031b98aa18a3dd5df3ab2a2f793fde5edf54d839da74245fabebec7e35aa1e49116ebd57d4d321695278ad051779b0c0565e48cf9dbd51ff7df7035c#npm:3.2.0", {\
-          "packageLocation": "./.yarn/__virtual__/react-lazyload-virtual-29c544ab72/0/cache/react-lazyload-npm-3.2.0-5a95ee4bd0-871a88c698.zip/node_modules/react-lazyload/",\
-          "packageDependencies": [\
-            ["react-lazyload", "virtual:096f3e41031b98aa18a3dd5df3ab2a2f793fde5edf54d839da74245fabebec7e35aa1e49116ebd57d4d321695278ad051779b0c0565e48cf9dbd51ff7df7035c#npm:3.2.0"],\
-            ["@types/react", "npm:18.0.28"],\
-            ["@types/react-dom", "npm:18.0.11"],\
-            ["react", "npm:18.2.0"],\
-            ["react-dom", "virtual:096f3e41031b98aa18a3dd5df3ab2a2f793fde5edf54d839da74245fabebec7e35aa1e49116ebd57d4d321695278ad051779b0c0565e48cf9dbd51ff7df7035c#npm:18.2.0"]\
-          ],\
-          "packagePeers": [\
-            "@types/react-dom",\
-            "@types/react",\
-            "react-dom",\
-            "react"\
           ],\
           "linkType": "HARD"\
         }]\
