@@ -89,6 +89,10 @@ const AudioPlayer = forwardRef<ReactH5AudioPlayer, AudioPlayerProps>(
       }
     }, []);
 
+    const onLoadedData = (e: Event) => {
+      (e?.currentTarget as HTMLAudioElement)?.parentElement?.focus();
+    };
+
     useEffect(() => {
       if (album && "mediaSession" in navigator) {
         const { track_title, album_title, album_artist, album_image } = album;
@@ -115,6 +119,7 @@ const AudioPlayer = forwardRef<ReactH5AudioPlayer, AudioPlayerProps>(
       ) {
         const audio = (ref as RefObject<ReactH5AudioPlayer>)?.current?.audio
           ?.current;
+
         navigator.mediaSession.setActionHandler("play", () => {
           audio?.play();
         });
@@ -150,6 +155,7 @@ const AudioPlayer = forwardRef<ReactH5AudioPlayer, AudioPlayerProps>(
         layout="stacked-reverse"
         defaultCurrentTime="Loading..."
         defaultDuration="Loading..."
+        onLoadedData={onLoadedData}
         customAdditionalControls={[
           RHAP_UI.LOOP,
           <LoopOneBadge key="loopOne" />,

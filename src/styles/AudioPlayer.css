@@ -29,6 +29,10 @@
   box-shadow: none;
 }
 
+.rhap_container:focus {
+  outline: none;
+}
+
 .rhap_main.rhap_stacked-reverse {
   padding: 0 15px;
 }
