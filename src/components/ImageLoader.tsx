@@ -51,7 +51,12 @@ function ImageLoader({
       className={`imgContainer${!className ? "" : ` ${className}`}`}
       style={{ maxWidth, maxHeight }}
     >
-      <img {...props} onLoad={handleOnLoad} style={imageStyle} />
+      <img
+        {...props}
+        onLoad={handleOnLoad}
+        style={imageStyle}
+        draggable={false}
+      />
       {disconnected ? <WirelessDisabled /> : !loaded && <Spinner />}
       {loaded && children}
     </div>
