@@ -10,7 +10,7 @@ import { default as ReactH5AudioPlayer, RHAP_UI } from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
 import "styles/AudioPlayer.css";
 import type { Album } from "typings/album";
-import ImageLoader from "./ImageLoader";
+import AlbumCover from "./AlbumCover";
 
 type AudioPlayerProps = {
   album: Album;
@@ -24,10 +24,6 @@ type LibraryButtonProps = {
   visible: boolean;
   onOpenModal: () => void;
 };
-
-type AlbumCoverProps = Partial<Omit<Album, "url">> &
-  Pick<AudioPlayerProps, "disconnected"> &
-  Pick<LibraryButtonProps, "onOpenModal">;
 
 const LoopOneBadge = () => <div className="playerLoopOneBadge">1</div>;
 
@@ -52,34 +48,18 @@ const CopyRightText = () => (
   </div>
 );
 
-const AlbumCover = ({
-  track_title,
-  album_image,
-  album_title,
-  disconnected,
-  onOpenModal,
-}: AlbumCoverProps) => {
-  return (
-    <div className="playerInfoContainer">
-      <ImageLoader
-        src={album_image}
-        alt={album_title}
-        disconnected={disconnected}
-        onClick={onOpenModal}
-        style={{ maxWidth: 430, maxHeight: 430 }}
-      >
-        <div className="library" />
-      </ImageLoader>
-      <div className="title">{track_title}</div>
-    </div>
-  );
-};
 const AudioPlayer = forwardRef<ReactH5AudioPlayer, AudioPlayerProps>(
   (
-    { album, disconnected, setModalOpen, handlePrevTrack, handleNextTrack },
+    {
+      album: selectedAlbum,
+      disconnected,
+      setModalOpen,
+      handlePrevTrack,
+      handleNextTrack,
+    },
     ref
   ) => {
-    const { url, ...albumProps } = album ?? {};
+    const { url, ...albumProps } = selectedAlbum ?? {};
 
     const onOpenModal = useCallback(() => {
       setModalOpen(true);
@@ -94,32 +74,34 @@ const AudioPlayer = forwardRef<ReactH5AudioPlayer, AudioPlayerProps>(
     };
 
     useEffect(() => {
-      if (album && "mediaSession" in navigator) {
-        const { track_title, album_title, album_artist, album_image } = album;
+      if (selectedAlbum && "mediaSession" in navigator) {
+        const {
+          track_title: title,
+          album_title: album,
+          album_artist: artist,
+          album_image: src,
+        } = selectedAlbum;
 
         navigator.mediaSession.metadata = new MediaMetadata({
-          title: track_title,
-          artist: album_artist,
-          album: album_title,
+          title,
+          artist,
+          album,
           artwork: [
             {
-              src: album_image,
+              src,
               sizes: "1000x1000",
               type: "image/webp",
             },
           ],
         });
       }
-    }, [album]);
+    }, [selectedAlbum]);
 
     useEffect(() => {
-      if (
-        (ref as RefObject<ReactH5AudioPlayer>)?.current?.audio?.current &&
-        "mediaSession" in navigator
-      ) {
-        const audio = (ref as RefObject<ReactH5AudioPlayer>)?.current?.audio
-          ?.current;
+      const audio = (ref as RefObject<ReactH5AudioPlayer>)?.current?.audio
+        ?.current;
 
+      if (audio && "mediaSession" in navigator) {
         navigator.mediaSession.setActionHandler("play", () => {
           audio?.play();
         });
@@ -144,6 +126,8 @@ const AudioPlayer = forwardRef<ReactH5AudioPlayer, AudioPlayerProps>(
             {...albumProps}
             disconnected={disconnected}
             onOpenModal={onOpenModal}
+            handlePrevTrack={handlePrevTrack}
+            handleNextTrack={handleNextTrack}
           />
         }
         footer={<CopyRightText />}
@@ -161,7 +145,7 @@ const AudioPlayer = forwardRef<ReactH5AudioPlayer, AudioPlayerProps>(
           <LoopOneBadge key="loopOne" />,
           <LibraryButton
             key="libraryButton"
-            visible={!!album}
+            visible={!!selectedAlbum}
             onOpenModal={onOpenModal}
           />,
         ]}
