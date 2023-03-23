@@ -32,6 +32,16 @@ export default function AlbumCover({
     mouseClientXDelta: 0,
   });
 
+  const resetTouchClientX = () => {
+    interactionRef.current.touchClientXStart = 0;
+    interactionRef.current.touchClientXDelta = 0;
+  };
+
+  const resetMouseClientX = () => {
+    interactionRef.current.mouseClientXStart = 0;
+    interactionRef.current.mouseClientXDelta = 0;
+  };
+
   const onTouchStart = ({ changedTouches }: TouchEvent<HTMLDivElement>) => {
     const touch = changedTouches?.item(0);
     interactionRef.current.touchClientXStart = touch?.clientX;
@@ -42,10 +52,12 @@ export default function AlbumCover({
     interactionRef.current.touchClientXDelta = touch?.clientX;
 
     const { touchClientXStart, touchClientXDelta } = interactionRef.current;
-    if (touchClientXStart - touchClientXDelta > 20) {
+    if (touchClientXStart - touchClientXDelta > 40) {
       handleNextTrack();
-    } else if (touchClientXStart - touchClientXDelta < -20) {
+      resetTouchClientX();
+    } else if (touchClientXStart - touchClientXDelta < -40) {
       handlePrevTrack();
+      resetTouchClientX();
     } else {
       onOpenModal();
     }
@@ -61,8 +73,10 @@ export default function AlbumCover({
     const { mouseClientXStart, mouseClientXDelta } = interactionRef.current;
     if (mouseClientXStart - mouseClientXDelta > 50) {
       handleNextTrack();
+      resetMouseClientX();
     } else if (mouseClientXStart - mouseClientXDelta < -50) {
       handlePrevTrack();
+      resetMouseClientX();
     } else {
       onOpenModal();
     }
