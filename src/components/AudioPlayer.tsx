@@ -120,6 +120,7 @@ const AudioPlayer = forwardRef<ReactH5AudioPlayer, AudioPlayerProps>(
     return (
       <ReactH5AudioPlayer
         src={url}
+        preload="metadata"
         ref={ref}
         header={
           <AlbumCover
