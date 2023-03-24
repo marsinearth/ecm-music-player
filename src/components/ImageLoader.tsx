@@ -56,6 +56,7 @@ function ImageLoader({
         onLoad={handleOnLoad}
         style={imageStyle}
         draggable={false}
+        loading="lazy"
       />
       {disconnected ? <WirelessDisabled /> : !loaded && <Spinner />}
       {loaded && children}
