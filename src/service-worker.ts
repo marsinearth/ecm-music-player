@@ -61,27 +61,6 @@ registerRoute(
   })
 );
 
-/**
- * Music src.
- *
- * Caches at: runtime
- */
-registerRoute(
-  ({ url }) =>
-    url.origin === "https://ecm-server.de" &&
-    url.pathname.startsWith("/audio/") &&
-    !url.href.endsWith(".webp"),
-  new StaleWhileRevalidate({
-    cacheName: "running-music-source",
-    plugins: [
-      new CacheableResponsePlugin({
-        statuses: [0, 200],
-      }),
-      new ExpirationPlugin({ maxEntries: 1 }), // Will cache maximum 1 requests.
-    ],
-  })
-);
-
 // Make JS/CSS fast by returning assets from the cache
 // But make sure they're updating in the background for next use
 registerRoute(
