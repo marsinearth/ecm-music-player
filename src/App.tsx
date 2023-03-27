@@ -1,6 +1,6 @@
 import AlbumsModal from "components/AlbumsModal";
 import AudioPlayer from "components/AudioPlayer";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import H5AudioPlayer from "react-h5-audio-player";
 
 import "react-tooltip/dist/react-tooltip.css";
@@ -18,18 +18,6 @@ function App() {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [samplesList, setSamplesList] = useState<Album[]>([]);
-
-  const handlePrevTrack = useCallback(() => {
-    setSelectedIndex((currSelectedIndex) =>
-      currSelectedIndex > 0 ? currSelectedIndex - 1 : samplesList.length - 1
-    );
-  }, [samplesList]);
-
-  const handleNextTrack = useCallback(() => {
-    setSelectedIndex((currSelectedIndex) =>
-      currSelectedIndex < samplesList.length - 1 ? currSelectedIndex + 1 : 0
-    );
-  }, [samplesList]);
 
   useEffect(() => {
     fetchAPI()
@@ -53,11 +41,11 @@ function App() {
         <div className="audioPlayerContainer">
           <AudioPlayer
             ref={playerRef}
-            album={samplesList[selectedIndex]}
+            list={samplesList}
+            selectedIndex={selectedIndex}
+            setSelectedIndex={setSelectedIndex}
             disconnected={disconnected}
             setModalOpen={setModalOpen}
-            handlePrevTrack={handlePrevTrack}
-            handleNextTrack={handleNextTrack}
           />
         </div>
       </header>
