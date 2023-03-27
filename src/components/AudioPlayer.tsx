@@ -13,11 +13,11 @@ import type { Album } from "typings/album";
 import AlbumCover from "./AlbumCover";
 
 type AudioPlayerProps = {
-  album: Album;
+  list: Album[];
+  selectedIndex: number;
+  setSelectedIndex: Dispatch<SetStateAction<number>>;
   disconnected: boolean;
   setModalOpen: Dispatch<SetStateAction<boolean>>;
-  handlePrevTrack: () => void;
-  handleNextTrack: () => void;
 };
 
 type LibraryButtonProps = {
@@ -50,15 +50,11 @@ const CopyRightText = () => (
 
 const AudioPlayer = forwardRef<ReactH5AudioPlayer, AudioPlayerProps>(
   (
-    {
-      album: selectedAlbum,
-      disconnected,
-      setModalOpen,
-      handlePrevTrack,
-      handleNextTrack,
-    },
+    { list, disconnected, setModalOpen, selectedIndex, setSelectedIndex },
     ref
   ) => {
+    const selectedAlbum = list[selectedIndex];
+
     const { url, ...albumProps } = selectedAlbum ?? {};
 
     const onOpenModal = useCallback(() => {
@@ -68,6 +64,28 @@ const AudioPlayer = forwardRef<ReactH5AudioPlayer, AudioPlayerProps>(
         body.style.overflow = "hidden";
       }
     }, []);
+
+    const handlePrevTrack = () => {
+      const audio = (ref as RefObject<ReactH5AudioPlayer>)?.current?.audio
+        ?.current;
+
+      if (audio) {
+        // if playback time is more than 5 sec, reset the playback rather than set prev track
+        if (audio.currentTime > 5) {
+          audio.currentTime = 0;
+        } else {
+          setSelectedIndex((currSelectedIndex) =>
+            currSelectedIndex > 0 ? currSelectedIndex - 1 : list.length - 1
+          );
+        }
+      }
+    };
+
+    const handleNextTrack = () => {
+      setSelectedIndex((currSelectedIndex) =>
+        currSelectedIndex < list.length - 1 ? currSelectedIndex + 1 : 0
+      );
+    };
 
     const onLoadedData = (e: Event) => {
       (e?.currentTarget as HTMLAudioElement)?.parentElement?.focus();
@@ -138,8 +156,6 @@ const AudioPlayer = forwardRef<ReactH5AudioPlayer, AudioPlayerProps>(
         showSkipControls
         showJumpControls={false}
         layout="stacked-reverse"
-        defaultCurrentTime="Loading..."
-        defaultDuration="Loading..."
         onLoadedData={onLoadedData}
         customAdditionalControls={[
           RHAP_UI.LOOP,
