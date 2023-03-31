@@ -107,7 +107,7 @@ const AudioPlayer = forwardRef<ReactH5AudioPlayer, AudioPlayerProps>(
           artwork: [
             {
               src,
-              sizes: "1000x1000",
+              sizes: "300x300",
               type: "image/webp",
             },
           ],
