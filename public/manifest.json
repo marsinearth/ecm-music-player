@@ -1,11 +1,14 @@
 {
-  "short_name": "ECM Music Player",
+  "short_name": "ECM Player",
   "name": "ECM Sample Music Player",
+  "description": "collection of free sample tracks of ecmrecords.com",
+  "id": "/?source=pwa",
+  "version": "1.0.0",
   "icons": [
     {
       "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "type": "image/x-icon",
+      "sizes": "64x64 32x32 24x24 16x16"
     },
     {
       "src": "favicon-128.png",
@@ -13,7 +16,13 @@
       "sizes": "128x128"
     }
   ],
-  "start_url": ".",
+  "shortcuts": [
+    {
+      "name": "home",
+      "url": "/?source=pwa"
+    }
+  ],
+  "start_url": "/?source=pwa",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"
