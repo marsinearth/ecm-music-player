@@ -18,6 +18,9 @@ function App() {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [samplesList, setSamplesList] = useState<Album[]>([]);
+  const [samplesIndexMap, setSamplesIndexMap] = useState<
+    Map<Album["album_title"], number>
+  >(new Map());
 
   useEffect(() => {
     fetchAPI()
@@ -35,6 +38,15 @@ function App() {
       });
   }, []);
 
+  // map all samplesList by its album name for fast url-find
+  useEffect(() => {
+    const filledIndexMap = samplesList.reduce(
+      (resMap, { id }, index) => resMap.set(id, index),
+      new Map()
+    );
+    setSamplesIndexMap(filledIndexMap);
+  }, [samplesList]);
+
   return (
     <div className="App">
       <header>
@@ -42,6 +54,7 @@ function App() {
           <AudioPlayer
             ref={playerRef}
             list={samplesList}
+            samplesIndexMap={samplesIndexMap}
             selectedIndex={selectedIndex}
             setSelectedIndex={setSelectedIndex}
             disconnected={disconnected}
@@ -56,7 +69,6 @@ function App() {
         setModalOpen={setModalOpen}
         samplesList={samplesList}
         selectedIndex={selectedIndex}
-        setSelectedIndex={setSelectedIndex}
       />
     </div>
   );
