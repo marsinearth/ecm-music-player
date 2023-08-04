@@ -8,12 +8,14 @@ import {
 } from "react";
 import { default as ReactH5AudioPlayer, RHAP_UI } from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
+import { useNavigate, useParams } from "react-router-dom";
 import "styles/AudioPlayer.css";
 import type { Album } from "typings/album";
 import AlbumCover from "./AlbumCover";
 
 type AudioPlayerProps = {
   list: Album[];
+  samplesIndexMap: Map<Album["album_title"], number>;
   selectedIndex: number;
   setSelectedIndex: Dispatch<SetStateAction<number>>;
   disconnected: boolean;
@@ -50,9 +52,19 @@ const CopyRightText = () => (
 
 const AudioPlayer = forwardRef<ReactH5AudioPlayer, AudioPlayerProps>(
   (
-    { list, disconnected, setModalOpen, selectedIndex, setSelectedIndex },
+    {
+      list,
+      samplesIndexMap,
+      disconnected,
+      setModalOpen,
+      selectedIndex,
+      setSelectedIndex,
+    },
     ref
   ) => {
+    const defaultAlbumId = list[0]?.id;
+    const navigate = useNavigate();
+    const { albumId } = useParams<{ albumId: string }>();
     const selectedAlbum = list[selectedIndex];
 
     const { url, ...albumProps } = selectedAlbum ?? {};
@@ -74,17 +86,22 @@ const AudioPlayer = forwardRef<ReactH5AudioPlayer, AudioPlayerProps>(
         if (audio.currentTime > 5) {
           audio.currentTime = 0;
         } else {
-          setSelectedIndex((currSelectedIndex) =>
-            currSelectedIndex > 0 ? currSelectedIndex - 1 : list.length - 1
-          );
+          const toIndex =
+            selectedIndex > 0 ? selectedIndex - 1 : list.length - 1;
+          const foundAlbumId = list[toIndex]?.id;
+          if (foundAlbumId) {
+            navigate(`/${foundAlbumId}`);
+          }
         }
       }
     };
 
     const handleNextTrack = () => {
-      setSelectedIndex((currSelectedIndex) =>
-        currSelectedIndex < list.length - 1 ? currSelectedIndex + 1 : 0
-      );
+      const toIndex = selectedIndex < list.length - 1 ? selectedIndex + 1 : 0;
+      const foundAlbumId = list[toIndex]?.id;
+      if (foundAlbumId) {
+        navigate(`/${foundAlbumId}`);
+      }
     };
 
     const onLoadedData = (e: Event) => {
@@ -134,6 +151,22 @@ const AudioPlayer = forwardRef<ReactH5AudioPlayer, AudioPlayerProps>(
         });
       }
     }, [handlePrevTrack, handleNextTrack]);
+
+    useEffect(() => {
+      if (samplesIndexMap.size) {
+        const foundIndex = samplesIndexMap.get(albumId!);
+        if (!foundIndex) {
+          navigate(`/${defaultAlbumId}`);
+        } else {
+          setSelectedIndex((prevSelectedIndex) => {
+            if (prevSelectedIndex !== foundIndex) {
+              return Number(foundIndex);
+            }
+            return prevSelectedIndex;
+          });
+        }
+      }
+    }, [navigate, defaultAlbumId, albumId, samplesIndexMap]);
 
     return (
       <ReactH5AudioPlayer

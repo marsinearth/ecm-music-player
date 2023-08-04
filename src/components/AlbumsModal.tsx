@@ -7,6 +7,7 @@ import {
 } from "react";
 import H5AudioPlayer from "react-h5-audio-player";
 import Modal from "react-modal";
+import { useNavigate } from "react-router-dom";
 import { Tooltip } from "react-tooltip";
 import "styles/AlbumModal.css";
 import type { Album } from "typings/album";
@@ -20,7 +21,6 @@ type AlbumsModalProps = {
   setModalOpen: Dispatch<SetStateAction<boolean>>;
   samplesList: Album[];
   selectedIndex: number;
-  setSelectedIndex: Dispatch<SetStateAction<number>>;
 };
 
 type CloseButtonProps = {
@@ -42,26 +42,21 @@ const CloseButton = ({ onCloseModal }: CloseButtonProps) => {
 
 const AlbumsModal = forwardRef<H5AudioPlayer, AlbumsModalProps>(
   (
-    {
-      modalOpen,
-      disconnected,
-      setModalOpen,
-      samplesList,
-      selectedIndex,
-      setSelectedIndex,
-    },
+    { modalOpen, disconnected, setModalOpen, samplesList, selectedIndex },
     playerRef
   ) => {
+    const navigate = useNavigate();
     const onCloseModal = useCallback(() => {
       setModalOpen(false);
     }, []);
 
     const setAlbum = useCallback(
       (index: number) => {
-        setSelectedIndex(index);
+        const { id } = samplesList[index];
+        navigate(`/${id}`);
         onCloseModal();
       },
-      [onCloseModal]
+      [navigate, onCloseModal, samplesList]
     );
 
     const playing = !(playerRef as RefObject<H5AudioPlayer>)?.current?.audio
