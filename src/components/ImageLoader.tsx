@@ -25,7 +25,10 @@ function ImageLoader({
   const [loaded, setLoaded] = useState(false);
 
   const handleOnLoad = () => {
-    setLoaded(true);
+    // to make it a tempo later than useEffect
+    setTimeout(() => {
+      setLoaded(true);
+    });
   };
 
   const imageStyle: CSSProperties = useMemo(
