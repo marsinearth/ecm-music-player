@@ -154,10 +154,10 @@ const AudioPlayer = forwardRef<ReactH5AudioPlayer, AudioPlayerProps>(
 
     useEffect(() => {
       if (samplesIndexMap.size) {
-        const foundIndex = samplesIndexMap.get(albumId!);
-        if (!foundIndex) {
+        if (!albumId) {
           navigate(`/${defaultAlbumId}`);
         } else {
+          const foundIndex = samplesIndexMap.get(albumId);
           setSelectedIndex((prevSelectedIndex) => {
             if (prevSelectedIndex !== foundIndex) {
               return Number(foundIndex);
