@@ -34,9 +34,9 @@ function AlbumCard({
   return (
     <LazyLoad
       once // once loaded, LazyLoad doesn't consider the component.
-      // overflow // needed inside of positioned element
+      overflow // needed inside of positioned element
       debounce={600} // for load images from lower part of the page by quick scroll
-      // offset={300} // for preload top/bottom images out of the viewport, esp. for upper part when scrolling up after quick/huge downscroll
+      offset={300} // for preload top/bottom images out of the viewport, esp. for upper part when scrolling up after quick/huge downscroll
       scrollContainer="section#albumsContainer"
     >
       <ImageLoader
