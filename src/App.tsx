@@ -1,8 +1,8 @@
-import AlbumsModal from "components/AlbumsModal";
 import AudioPlayer from "components/AudioPlayer";
+import BrowseAlbums from "components/BrowseAlbums";
 import { useEffect, useRef, useState } from "react";
 import H5AudioPlayer from "react-h5-audio-player";
-
+import { Toaster } from "react-hot-toast";
 import "react-tooltip/dist/react-tooltip.css";
 import "styles/App.css";
 import type { Album } from "typings/album";
@@ -47,6 +47,8 @@ function App() {
     setSamplesIndexMap(filledIndexMap);
   }, [samplesList]);
 
+  console.log({ samplesList });
+
   return (
     <div className="App">
       <header>
@@ -62,7 +64,7 @@ function App() {
           />
         </div>
       </header>
-      <AlbumsModal
+      <BrowseAlbums
         ref={playerRef}
         modalOpen={modalOpen}
         disconnected={disconnected}
@@ -70,6 +72,7 @@ function App() {
         samplesList={samplesList}
         selectedIndex={selectedIndex}
       />
+      <Toaster />
     </div>
   );
 }

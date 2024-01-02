@@ -14,6 +14,7 @@ type AlbumCoverProps = Partial<Omit<Album, "url">> & {
   onOpenModal: () => void;
   handlePrevTrack: () => void;
   handleNextTrack: () => void;
+  isPlayerAlbum?: boolean;
 };
 
 export default function AlbumCover({

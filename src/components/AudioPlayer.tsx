@@ -6,8 +6,10 @@ import {
   type RefObject,
   type SetStateAction,
 } from "react";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 import { default as ReactH5AudioPlayer, RHAP_UI } from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
+import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import "styles/AudioPlayer.css";
 import type { Album } from "typings/album";
@@ -27,6 +29,8 @@ type LibraryButtonProps = {
   onOpenModal: () => void;
 };
 
+type CopyButtonProps = Pick<Album, "track_title">;
+
 const LoopOneBadge = () => <div className="playerLoopOneBadge">1</div>;
 
 const LibraryButton = ({ visible, onOpenModal }: LibraryButtonProps) => {
@@ -35,6 +39,27 @@ const LibraryButton = ({ visible, onOpenModal }: LibraryButtonProps) => {
   }
   return <div className="libraryButton" onClick={onOpenModal} />;
 };
+
+const CopyButton = ({ track_title }: CopyButtonProps) => (
+  <CopyToClipboard
+    text={window.location.href}
+    onCopy={() =>
+      toast(`${track_title} is copied!`, {
+        id: "clipboard",
+        icon: "🔗",
+        style: {
+          borderRadius: "10px",
+          backgroundColor: "#7b7b7b",
+          color: "#fff",
+        },
+        position: "bottom-center",
+        duration: 2000,
+      })
+    }
+  >
+    <div className="copyLinkButton" />
+  </CopyToClipboard>
+);
 
 const CopyRightText = () => (
   <div className="copyright">
@@ -198,6 +223,7 @@ const AudioPlayer = forwardRef<ReactH5AudioPlayer, AudioPlayerProps>(
             visible={!!selectedAlbum}
             onOpenModal={onOpenModal}
           />,
+          <CopyButton key="copyLink" track_title={albumProps.track_title} />,
         ]}
       />
     );
