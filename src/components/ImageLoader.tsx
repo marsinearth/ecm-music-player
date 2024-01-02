@@ -61,6 +61,7 @@ function ImageLoader({
         draggable={false}
         loading="lazy"
       />
+
       {disconnected ? <WirelessDisabled /> : !loaded && <Spinner />}
       {loaded && children}
     </div>

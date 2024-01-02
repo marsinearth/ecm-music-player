@@ -24,6 +24,15 @@
   cursor: pointer;
 }
 
+.copyLinkButton {
+  margin-left: 10px;
+  width: 24px;
+  height: 24px;
+  background: center / contain no-repeat url("../media/copy-link.svg")
+    transparent;
+  cursor: pointer;
+}
+
 .rhap_container {
   padding: 10px 0;
   box-shadow: none;
