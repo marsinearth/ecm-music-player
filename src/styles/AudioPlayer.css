@@ -42,6 +42,17 @@
   outline: none;
 }
 
+.rhap_progress-section .rhap_current-time,
+.rhap_progress-section .rhap_total-time {
+  width: 15%;
+}
+
+.rhap_progress-section .rhap_progress-container {
+  margin-left: 7px;
+  margin-right: 7px;
+  width: 70%;
+}
+
 .rhap_main.rhap_stacked-reverse {
   padding: 0 15px;
 }
