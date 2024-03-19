@@ -47,7 +47,7 @@ function App() {
     setSamplesIndexMap(filledIndexMap);
   }, [samplesList]);
 
-  console.log({ samplesList });
+  // console.log({ samplesList });
 
   return (
     <div className="App">
