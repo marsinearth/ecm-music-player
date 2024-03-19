@@ -1,6 +1,8 @@
 import {
   forwardRef,
   useCallback,
+  useRef,
+  useState,
   type CSSProperties,
   type Dispatch,
   type RefObject,
@@ -34,7 +36,9 @@ const BrowseAlbums = forwardRef<H5AudioPlayer, AlbumsModalProps>(
     { modalOpen, disconnected, setModalOpen, samplesList, selectedIndex },
     playerRef
   ) => {
+    const scrollContainerRef = useRef<HTMLElement>(null);
     const navigate = useNavigate();
+    const [scrollTop, setScrollTop] = useState(0);
     const onCloseModal = useCallback(() => {
       setModalOpen(false);
     }, []);
@@ -77,11 +81,21 @@ const BrowseAlbums = forwardRef<H5AudioPlayer, AlbumsModalProps>(
     const playing = !(playerRef as RefObject<H5AudioPlayer>)?.current?.audio
       ?.current?.paused;
 
+    if (modalOpen && scrollContainerRef.current) {
+      const { scrollTop: currScrollTop } = scrollContainerRef.current;
+      if (scrollTop !== currScrollTop) {
+        scrollContainerRef.current.scrollTo({
+          top: scrollTop,
+          behavior: "smooth",
+        });
+      }
+    }
+
     return (
       <div id="wrapper" style={wrapperStyle}>
         <div id="container" style={containerStyle}>
           <CloseButton onCloseModal={onCloseModal} />
-          <section id="albumsContainer">
+          <section id="albumsContainer" ref={scrollContainerRef}>
             {samplesList.map((album, i) => (
               <AlbumCard
                 key={album.id}
@@ -91,6 +105,7 @@ const BrowseAlbums = forwardRef<H5AudioPlayer, AlbumsModalProps>(
                 playing={playing}
                 disconnected={disconnected}
                 setAlbum={setAlbum}
+                setScrollTop={setScrollTop}
               />
             ))}
           </section>

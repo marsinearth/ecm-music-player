@@ -1,4 +1,5 @@
 import {
+  forwardRef,
   useEffect,
   useMemo,
   useState,
@@ -15,57 +16,54 @@ type ImageLoaderProps = PropsWithChildren<
   }
 >;
 
-function ImageLoader({
-  style,
-  disconnected,
-  children,
-  className,
-  ...props
-}: ImageLoaderProps) {
-  const [loaded, setLoaded] = useState(false);
+const ImageLoader = forwardRef<HTMLDivElement, ImageLoaderProps>(
+  ({ style, disconnected, children, className, ...props }, ref) => {
+    const [loaded, setLoaded] = useState(false);
 
-  const handleOnLoad = () => {
-    // to make it a tempo later than useEffect
-    setTimeout(() => {
-      setLoaded(true);
-    });
-  };
+    const handleOnLoad = () => {
+      // to make it a tempo later than useEffect
+      setTimeout(() => {
+        setLoaded(true);
+      });
+    };
 
-  const imageStyle: CSSProperties = useMemo(
-    () => ({
-      ...style,
-      contentVisibility: "auto",
-      visibility: loaded ? "visible" : "hidden",
-      height: loaded ? "100%" : 0,
-    }),
-    [style, loaded]
-  );
+    const imageStyle: CSSProperties = useMemo(
+      () => ({
+        ...style,
+        contentVisibility: "auto",
+        visibility: loaded ? "visible" : "hidden",
+        height: loaded ? "100%" : 0,
+      }),
+      [style, loaded]
+    );
 
-  useEffect(() => {
-    // when source is changed, reset loaded to false
-    setLoaded(false);
-  }, [props.src]);
+    useEffect(() => {
+      // when source is changed, reset loaded to false
+      setLoaded(false);
+    }, [props.src]);
 
-  // needs for obtain preserved place for responsive picture
-  const { maxWidth, maxHeight } = style || {};
+    // needs for obtain preserved place for responsive picture
+    const { maxWidth, maxHeight } = style || {};
 
-  return (
-    <div
-      className={`imgContainer${!className ? "" : ` ${className}`}`}
-      style={{ maxWidth, maxHeight }}
-    >
-      <img
-        {...props}
-        onLoad={handleOnLoad}
-        style={imageStyle}
-        draggable={false}
-        loading="lazy"
-      />
+    return (
+      <div
+        className={`imgContainer${!className ? "" : ` ${className}`}`}
+        style={{ maxWidth, maxHeight }}
+        ref={ref}
+      >
+        <img
+          {...props}
+          onLoad={handleOnLoad}
+          style={imageStyle}
+          draggable={false}
+          loading="lazy"
+        />
 
-      {disconnected ? <WirelessDisabled /> : !loaded && <Spinner />}
-      {loaded && children}
-    </div>
-  );
-}
+        {disconnected ? <WirelessDisabled /> : !loaded && <Spinner />}
+        {loaded && children}
+      </div>
+    );
+  }
+);
 
 export default ImageLoader;

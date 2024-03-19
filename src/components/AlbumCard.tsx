@@ -1,4 +1,10 @@
-import { memo } from "react";
+import {
+  memo,
+  useEffect,
+  useRef,
+  type Dispatch,
+  type SetStateAction,
+} from "react";
 import LazyLoad from "react-lazyload";
 import "styles/AlbumCard.css";
 import type { Album } from "typings/album";
@@ -10,6 +16,7 @@ type AlbumCardProps = Album & {
   selected: boolean;
   playing: boolean;
   setAlbum: (index: number) => void;
+  setScrollTop: Dispatch<SetStateAction<number>>;
 };
 
 function AlbumCard({
@@ -22,7 +29,9 @@ function AlbumCard({
   playing,
   disconnected,
   setAlbum,
+  setScrollTop,
 }: AlbumCardProps) {
+  const cardRef = useRef<HTMLDivElement>(null);
   const onCloseModal = () => {
     setAlbum(index);
     const body = document.querySelector("body");
@@ -30,6 +39,13 @@ function AlbumCard({
       body.style.overflow = "auto";
     }
   };
+
+  useEffect(() => {
+    if (selected && cardRef.current) {
+      const { parentElement } = cardRef.current;
+      setScrollTop(parentElement?.offsetTop || 0);
+    }
+  }, [setScrollTop, selected]);
 
   return (
     <LazyLoad
@@ -47,6 +63,7 @@ function AlbumCard({
         data-tooltip-content={`${album_artist}: ${track_title}`}
         style={{ maxWidth: 400, maxHeight: 400, border: "1px outset #dddddd" }}
         onClick={onCloseModal}
+        ref={cardRef}
       >
         <div
           className="albumCardPlayingNowOverlay"
