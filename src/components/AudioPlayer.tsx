@@ -122,10 +122,12 @@ const AudioPlayer = forwardRef<ReactH5AudioPlayer, AudioPlayerProps>(
     };
 
     const handleNextTrack = () => {
+      navigator.mediaSession.playbackState = "paused";
       const toIndex = selectedIndex < list.length - 1 ? selectedIndex + 1 : 0;
       const foundAlbumId = list[toIndex]?.id;
       if (foundAlbumId) {
         navigate(`/${foundAlbumId}`);
+        navigator.mediaSession.playbackState = "playing";
       }
     };
 
@@ -161,7 +163,7 @@ const AudioPlayer = forwardRef<ReactH5AudioPlayer, AudioPlayerProps>(
       const audio = (ref as RefObject<ReactH5AudioPlayer>)?.current?.audio
         ?.current;
 
-      if (audio && "mediaSession" in navigator) {
+      if ("mediaSession" in navigator) {
         navigator.mediaSession.setActionHandler("play", () => {
           audio?.play();
         });
