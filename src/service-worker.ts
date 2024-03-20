@@ -16,7 +16,7 @@ import { CacheFirst, StaleWhileRevalidate } from "workbox-strategies";
 
 declare const self: ServiceWorkerGlobalScope;
 
-const SERVICE_WORKER_VERSION = "1.0.0";
+// const SERVICE_WORKER_VERSION = "1.0.0";
 const DAY_IN_SECONDS = 24 * 60 * 60;
 const MONTH_IN_SECONDS = DAY_IN_SECONDS * 30;
 

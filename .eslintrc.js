@@ -2,11 +2,13 @@ module.exports = {
     "env": {
         "browser": true,
         "es2021": true,
-        "jest": true
+        "jest": true,
+        "node": true
     },
     "extends": [
         "eslint:recommended",
         "plugin:react/recommended",
+        "plugin:react/jsx-runtime",
         "plugin:@typescript-eslint/recommended"
     ],
     "overrides": [
@@ -14,6 +16,9 @@ module.exports = {
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
         "ecmaVersion": "latest",
+        "ecmaFeatures": {
+            "jsx": true,
+        },
         "sourceType": "module"
     },
     "plugins": [
@@ -24,5 +29,10 @@ module.exports = {
         "react/jsx-uses-react": "off",
         "react/react-in-jsx-scope": "off",
         "react/display-name": "off",
+    },
+    "settings": {
+        "react": {
+            "version": "detect"
+        }
     }
 }
