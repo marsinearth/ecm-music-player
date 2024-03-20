@@ -135,8 +135,20 @@ const AudioPlayer = forwardRef<ReactH5AudioPlayer, AudioPlayerProps>(
     const onLoadedData = (e: Event) => {
       (e?.currentTarget as HTMLAudioElement)?.parentElement?.focus();
     };
+    // console.log({ selectedAlbum });
+    const onListenHandler = useCallback((e: Event) => {
+      const {
+        currentTime: position,
+        duration,
+        playbackRate,
+      } = e.target as HTMLAudioElement;
 
-    console.log({ selectedAlbum });
+      navigator.mediaSession.setPositionState({
+        duration,
+        playbackRate,
+        position,
+      });
+    }, []);
 
     useEffect(() => {
       if (selectedAlbum && "mediaSession" in navigator) {
@@ -144,8 +156,20 @@ const AudioPlayer = forwardRef<ReactH5AudioPlayer, AudioPlayerProps>(
           track_title: title,
           album_title: album,
           album_artist: artist,
-          album_image: src,
+          album_image,
         } = selectedAlbum;
+
+        const img = new Image();
+        img.src = album_image;
+        img.crossOrigin = "anonymouse";
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+
+        ctx?.drawImage(img, 0, 0, 128, 128);
+
+        const dataUrl = canvas.toDataURL("image/webp");
+
+        // console.log({ dataUrl });
 
         navigator.mediaSession.metadata = new MediaMetadata({
           title,
@@ -153,8 +177,8 @@ const AudioPlayer = forwardRef<ReactH5AudioPlayer, AudioPlayerProps>(
           album,
           artwork: [
             {
-              src,
-              // sizes: "300x300",
+              src: dataUrl,
+              sizes: "128x128",
               type: "image/webp",
             },
           ],
@@ -216,6 +240,7 @@ const AudioPlayer = forwardRef<ReactH5AudioPlayer, AudioPlayerProps>(
         onClickNext={handleNextTrack}
         onClickPrevious={handlePrevTrack}
         onEnded={handleNextTrack}
+        onListen={onListenHandler}
         showSkipControls
         showJumpControls={false}
         layout="stacked-reverse"
