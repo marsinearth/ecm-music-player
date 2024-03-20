@@ -136,6 +136,8 @@ const AudioPlayer = forwardRef<ReactH5AudioPlayer, AudioPlayerProps>(
       (e?.currentTarget as HTMLAudioElement)?.parentElement?.focus();
     };
 
+    console.log({ selectedAlbum });
+
     useEffect(() => {
       if (selectedAlbum && "mediaSession" in navigator) {
         const {
@@ -152,7 +154,7 @@ const AudioPlayer = forwardRef<ReactH5AudioPlayer, AudioPlayerProps>(
           artwork: [
             {
               src,
-              sizes: "300x300",
+              // sizes: "300x300",
               type: "image/webp",
             },
           ],
