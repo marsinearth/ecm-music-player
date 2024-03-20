@@ -156,20 +156,8 @@ const AudioPlayer = forwardRef<ReactH5AudioPlayer, AudioPlayerProps>(
           track_title: title,
           album_title: album,
           album_artist: artist,
-          album_image,
+          album_image: src,
         } = selectedAlbum;
-
-        const img = new Image();
-        img.src = album_image;
-        img.crossOrigin = "anonymouse";
-        const canvas = document.createElement("canvas");
-        const ctx = canvas.getContext("2d");
-
-        ctx?.drawImage(img, 0, 0, 128, 128);
-
-        const dataUrl = canvas.toDataURL("image/webp");
-
-        // console.log({ dataUrl });
 
         navigator.mediaSession.metadata = new MediaMetadata({
           title,
@@ -177,7 +165,7 @@ const AudioPlayer = forwardRef<ReactH5AudioPlayer, AudioPlayerProps>(
           album,
           artwork: [
             {
-              src: dataUrl,
+              src: src,
               sizes: "128x128",
               type: "image/webp",
             },
