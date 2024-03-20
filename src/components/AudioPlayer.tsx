@@ -7,6 +7,7 @@ import {
   type SetStateAction,
 } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
+import { isMobileSafari } from "react-device-detect";
 import { default as ReactH5AudioPlayer, RHAP_UI } from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
 import toast from "react-hot-toast";
@@ -226,6 +227,19 @@ const AudioPlayer = forwardRef<ReactH5AudioPlayer, AudioPlayerProps>(
             onOpenModal={onOpenModal}
           />,
           <CopyButton key="copyLink" track_title={albumProps.track_title} />,
+        ]}
+        customVolumeControls={[
+          isMobileSafari ? (
+            <div className="volumeDisabledContainer">
+              <div className="volumeDisabledButton" />
+              <span>
+                Use device
+                <br /> volume buttons
+              </span>
+            </div>
+          ) : (
+            RHAP_UI.VOLUME
+          ),
         ]}
       />
     );
