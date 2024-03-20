@@ -24,6 +24,28 @@
   cursor: pointer;
 }
 
+.volumeDisabledContainer {
+  display: flex;
+  flex: 1 1 33%;
+  flex-direction: row;
+  color: #868686;
+  align-items: center;
+}
+
+.volumeDisabledContainer span {
+  font-size: 9px;
+}
+
+.volumeDisabledButton {
+  margin-left: 5px;
+  margin-right: 8px;
+  width: 26px;
+  height: 26px;
+  background: center / contain no-repeat url("../media/volume-disabled.svg")
+    transparent;
+  cursor: pointer;
+}
+
 .copyLinkButton {
   margin-left: 10px;
   width: 24px;
