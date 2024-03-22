@@ -123,12 +123,10 @@ const AudioPlayer = forwardRef<ReactH5AudioPlayer, AudioPlayerProps>(
     }, [navigate, ref, list, selectedIndex]);
 
     const handleNextTrack = useCallback(() => {
-      navigator.mediaSession.playbackState = "paused";
       const toIndex = selectedIndex < list.length - 1 ? selectedIndex + 1 : 0;
       const foundAlbumId = list[toIndex]?.id;
       if (foundAlbumId) {
         navigate(`/${foundAlbumId}`);
-        navigator.mediaSession.playbackState = "playing";
       }
     }, [navigate, list, selectedIndex]);
 
@@ -136,24 +134,24 @@ const AudioPlayer = forwardRef<ReactH5AudioPlayer, AudioPlayerProps>(
       (e?.currentTarget as HTMLAudioElement)?.parentElement?.focus();
     };
     // console.log({ selectedAlbum });
-    // const updatePositionState = useCallback(() => {
-    //   const audio = (ref as RefObject<ReactH5AudioPlayer>)?.current?.audio
-    //     ?.current;
+    const updatePositionState = useCallback(() => {
+      const audio = (ref as RefObject<ReactH5AudioPlayer>)?.current?.audio
+        ?.current;
 
-    //   if (audio && "setPositionState" in navigator.mediaSession) {
-    //     const { currentTime: position, duration, playbackRate } = audio;
+      if (audio && "setPositionState" in navigator.mediaSession) {
+        const { currentTime: position, duration, playbackRate } = audio;
 
-    //     console.log({ audio, position, duration, playbackRate });
+        console.log({ audio, position, duration, playbackRate });
 
-    //     if (!Number.isNaN(duration)) {
-    //       navigator.mediaSession.setPositionState({
-    //         duration,
-    //         playbackRate,
-    //         position,
-    //       });
-    //     }
-    //   }
-    // }, [ref]);
+        if (!Number.isNaN(duration)) {
+          navigator.mediaSession.setPositionState({
+            duration,
+            playbackRate,
+            position,
+          });
+        }
+      }
+    }, [ref]);
 
     useEffect(() => {
       if (selectedAlbum && "mediaSession" in navigator) {
@@ -161,40 +159,20 @@ const AudioPlayer = forwardRef<ReactH5AudioPlayer, AudioPlayerProps>(
           track_title: title,
           album_title: album,
           album_artist: artist,
-          album_image,
+          album_image: src,
         } = selectedAlbum;
 
-        let blobURL = "";
-
-        const image = new Image();
-        image.src = album_image;
-        image.crossOrigin = "anonymous";
-        image.addEventListener("load", () => {
-          const canvas = document.createElement("canvas");
-          const context = canvas.getContext("2d");
-          context?.drawImage(image, 0, 0, 128, 128);
-          canvas?.toBlob((blob) => {
-            if (!blob) return;
-            if (blobURL) URL.revokeObjectURL(blobURL);
-            blobURL = URL.createObjectURL(blob);
-
-            console.log({ blobURL, blob });
-
-            navigator.mediaSession.metadata = new MediaMetadata({
-              title,
-              artist,
-              album,
-              artwork: [
-                {
-                  src: blobURL,
-                  sizes: "128x128",
-                  type: blob.type,
-                },
-              ],
-            });
-          });
-
-          console.log({ selectedAlbum });
+        navigator.mediaSession.metadata = new MediaMetadata({
+          title,
+          artist,
+          album,
+          artwork: [
+            {
+              src,
+              sizes: "128x128",
+              type: "image/webp",
+            },
+          ],
         });
       }
     }, [selectedAlbum]);
@@ -206,7 +184,7 @@ const AudioPlayer = forwardRef<ReactH5AudioPlayer, AudioPlayerProps>(
       if (!!audio && "mediaSession" in navigator) {
         navigator.mediaSession.setActionHandler("play", () => {
           audio.play();
-          // updatePositionState();
+          updatePositionState();
         });
         navigator.mediaSession.setActionHandler("pause", () => {
           audio.pause();
@@ -224,7 +202,7 @@ const AudioPlayer = forwardRef<ReactH5AudioPlayer, AudioPlayerProps>(
             return;
           }
           audio.currentTime = details.seekTime || 0;
-          // updatePositionState();
+          updatePositionState();
         });
 
         audio.addEventListener("play", () => {
@@ -239,11 +217,11 @@ const AudioPlayer = forwardRef<ReactH5AudioPlayer, AudioPlayerProps>(
             navigator.mediaSession.playbackState = "paused";
           }
         });
-        // audio.addEventListener("ratechange", () => {
-        //   updatePositionState();
-        // });
+        audio.addEventListener("ratechange", () => {
+          updatePositionState();
+        });
       }
-    }, [ref, handlePrevTrack, handleNextTrack]);
+    }, [ref, handlePrevTrack, handleNextTrack, updatePositionState]);
 
     useEffect(() => {
       if (samplesIndexMap.size) {
