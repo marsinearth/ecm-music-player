@@ -5802,6 +5802,7 @@ __metadata:
     eslint: "npm:latest"
     eslint-config-prettier: "npm:^8.6.0"
     eslint-plugin-react: "npm:latest"
+    eslint-plugin-react-hooks: "npm:^4.6.0"
     prop-types: "npm:^15.8.1"
     react: "npm:^18.2.0"
     react-copy-to-clipboard: "npm:^5.1.0"
@@ -6332,7 +6333,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-react-hooks@npm:^4.3.0":
+"eslint-plugin-react-hooks@npm:^4.3.0, eslint-plugin-react-hooks@npm:^4.6.0":
   version: 4.6.0
   resolution: "eslint-plugin-react-hooks@npm:4.6.0"
   peerDependencies:

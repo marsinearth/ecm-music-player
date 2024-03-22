@@ -41,7 +41,7 @@ const BrowseAlbums = forwardRef<H5AudioPlayer, AlbumsModalProps>(
     const [scrollTop, setScrollTop] = useState(0);
     const onCloseModal = useCallback(() => {
       setModalOpen(false);
-    }, []);
+    }, [setModalOpen]);
 
     const setAlbum = useCallback(
       (index: number) => {

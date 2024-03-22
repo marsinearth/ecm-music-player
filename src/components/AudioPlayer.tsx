@@ -101,9 +101,9 @@ const AudioPlayer = forwardRef<ReactH5AudioPlayer, AudioPlayerProps>(
       if (body) {
         body.style.overflow = "hidden";
       }
-    }, []);
+    }, [setModalOpen]);
 
-    const handlePrevTrack = () => {
+    const handlePrevTrack = useCallback(() => {
       const audio = (ref as RefObject<ReactH5AudioPlayer>)?.current?.audio
         ?.current;
 
@@ -120,9 +120,9 @@ const AudioPlayer = forwardRef<ReactH5AudioPlayer, AudioPlayerProps>(
           }
         }
       }
-    };
+    }, [navigate, ref, list, selectedIndex]);
 
-    const handleNextTrack = () => {
+    const handleNextTrack = useCallback(() => {
       navigator.mediaSession.playbackState = "paused";
       const toIndex = selectedIndex < list.length - 1 ? selectedIndex + 1 : 0;
       const foundAlbumId = list[toIndex]?.id;
@@ -130,25 +130,30 @@ const AudioPlayer = forwardRef<ReactH5AudioPlayer, AudioPlayerProps>(
         navigate(`/${foundAlbumId}`);
         navigator.mediaSession.playbackState = "playing";
       }
-    };
+    }, [navigate, list, selectedIndex]);
 
     const onLoadedData = (e: Event) => {
       (e?.currentTarget as HTMLAudioElement)?.parentElement?.focus();
     };
     // console.log({ selectedAlbum });
-    const onListenHandler = useCallback((e: Event) => {
-      const {
-        currentTime: position,
-        duration,
-        playbackRate,
-      } = e.target as HTMLAudioElement;
+    // const updatePositionState = useCallback(() => {
+    //   const audio = (ref as RefObject<ReactH5AudioPlayer>)?.current?.audio
+    //     ?.current;
 
-      navigator.mediaSession.setPositionState({
-        duration,
-        playbackRate,
-        position,
-      });
-    }, []);
+    //   if (audio && "setPositionState" in navigator.mediaSession) {
+    //     const { currentTime: position, duration, playbackRate } = audio;
+
+    //     console.log({ audio, position, duration, playbackRate });
+
+    //     if (!Number.isNaN(duration)) {
+    //       navigator.mediaSession.setPositionState({
+    //         duration,
+    //         playbackRate,
+    //         position,
+    //       });
+    //     }
+    //   }
+    // }, [ref]);
 
     useEffect(() => {
       if (selectedAlbum && "mediaSession" in navigator) {
@@ -156,20 +161,40 @@ const AudioPlayer = forwardRef<ReactH5AudioPlayer, AudioPlayerProps>(
           track_title: title,
           album_title: album,
           album_artist: artist,
-          album_image: src,
+          album_image,
         } = selectedAlbum;
 
-        navigator.mediaSession.metadata = new MediaMetadata({
-          title,
-          artist,
-          album,
-          artwork: [
-            {
-              src: src,
-              sizes: "128x128",
-              type: "image/webp",
-            },
-          ],
+        let blobURL = "";
+
+        const image = new Image();
+        image.src = album_image;
+        image.crossOrigin = "anonymous";
+        image.addEventListener("load", () => {
+          const canvas = document.createElement("canvas");
+          const context = canvas.getContext("2d");
+          context?.drawImage(image, 0, 0, 128, 128);
+          canvas?.toBlob((blob) => {
+            if (!blob) return;
+            if (blobURL) URL.revokeObjectURL(blobURL);
+            blobURL = URL.createObjectURL(blob);
+
+            console.log({ blobURL, blob });
+
+            navigator.mediaSession.metadata = new MediaMetadata({
+              title,
+              artist,
+              album,
+              artwork: [
+                {
+                  src: blobURL,
+                  sizes: "128x128",
+                  type: blob.type,
+                },
+              ],
+            });
+          });
+
+          console.log({ selectedAlbum });
         });
       }
     }, [selectedAlbum]);
@@ -178,12 +203,13 @@ const AudioPlayer = forwardRef<ReactH5AudioPlayer, AudioPlayerProps>(
       const audio = (ref as RefObject<ReactH5AudioPlayer>)?.current?.audio
         ?.current;
 
-      if ("mediaSession" in navigator) {
+      if (!!audio && "mediaSession" in navigator) {
         navigator.mediaSession.setActionHandler("play", () => {
-          audio?.play();
+          audio.play();
+          // updatePositionState();
         });
         navigator.mediaSession.setActionHandler("pause", () => {
-          audio?.pause();
+          audio.pause();
         });
         navigator.mediaSession.setActionHandler("previoustrack", () => {
           handlePrevTrack();
@@ -191,8 +217,33 @@ const AudioPlayer = forwardRef<ReactH5AudioPlayer, AudioPlayerProps>(
         navigator.mediaSession.setActionHandler("nexttrack", () => {
           handleNextTrack();
         });
+        navigator.mediaSession.setActionHandler("seekto", (details) => {
+          if (details?.fastSeek && "fastSeek" in audio) {
+            // Only use fast seek if supported.
+            audio.fastSeek(details.seekTime || 0);
+            return;
+          }
+          audio.currentTime = details.seekTime || 0;
+          // updatePositionState();
+        });
+
+        audio.addEventListener("play", () => {
+          if (navigator.mediaSession.playbackState !== "playing") {
+            console.log("played");
+            navigator.mediaSession.playbackState = "playing";
+          }
+        });
+        audio.addEventListener("pause", () => {
+          if (navigator.mediaSession.playbackState !== "paused") {
+            console.log("paused");
+            navigator.mediaSession.playbackState = "paused";
+          }
+        });
+        // audio.addEventListener("ratechange", () => {
+        //   updatePositionState();
+        // });
       }
-    }, [handlePrevTrack, handleNextTrack]);
+    }, [ref, handlePrevTrack, handleNextTrack]);
 
     useEffect(() => {
       if (samplesIndexMap.size) {
@@ -208,12 +259,15 @@ const AudioPlayer = forwardRef<ReactH5AudioPlayer, AudioPlayerProps>(
           });
         }
       }
-    }, [navigate, defaultAlbumId, albumId, samplesIndexMap]);
+      return () => {
+        navigator.mediaSession.setPositionState(undefined);
+      };
+    }, [navigate, setSelectedIndex, defaultAlbumId, albumId, samplesIndexMap]);
 
     return (
       <ReactH5AudioPlayer
         src={url}
-        preload="metadata"
+        preload="auto"
         ref={ref}
         header={
           <AlbumCover
@@ -228,7 +282,6 @@ const AudioPlayer = forwardRef<ReactH5AudioPlayer, AudioPlayerProps>(
         onClickNext={handleNextTrack}
         onClickPrevious={handlePrevTrack}
         onEnded={handleNextTrack}
-        onListen={onListenHandler}
         showSkipControls
         showJumpControls={false}
         layout="stacked-reverse"
