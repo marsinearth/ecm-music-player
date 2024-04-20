@@ -14,6 +14,7 @@ import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import "styles/AudioPlayer.css";
 import type { Album } from "typings/album";
+import useInterval from "utils/useInterval";
 import AlbumCover from "./AlbumCover";
 
 type AudioPlayerProps = {
@@ -103,10 +104,66 @@ const AudioPlayer = forwardRef<ReactH5AudioPlayer, AudioPlayerProps>(
       }
     }, [setModalOpen]);
 
+    const setMediaSession = useCallback(() => {
+      if ("mediaSession" in navigator) {
+        if (selectedAlbum) {
+          const {
+            track_title: title,
+            album_title: album,
+            album_artist: artist,
+            album_image: src,
+          } = selectedAlbum;
+
+          navigator.mediaSession.metadata = new MediaMetadata({
+            title,
+            artist,
+            album,
+            artwork: [
+              {
+                src,
+                sizes: "128x128",
+                type: "image/webp",
+              },
+            ],
+          });
+        }
+
+        navigator.mediaSession.playbackState = "playing";
+      }
+    }, [selectedAlbum]);
+
+    const playTrack = useCallback(() => {
+      const audio = (ref as RefObject<ReactH5AudioPlayer>)?.current?.audio
+        ?.current;
+      if (audio) {
+        audio.play();
+        setMediaSession();
+      }
+    }, [ref, setMediaSession]);
+
+    const pauseTrack = useCallback(() => {
+      const audio = (ref as RefObject<ReactH5AudioPlayer>)?.current?.audio
+        ?.current;
+      if (audio) {
+        audio.pause();
+        if ("mediaSession" in navigator) {
+          navigator.mediaSession.playbackState = "paused";
+        }
+      }
+    }, [ref]);
+
+    const stopTrack = useCallback(() => {
+      const audio = (ref as RefObject<ReactH5AudioPlayer>)?.current?.audio
+        ?.current;
+      if (audio) {
+        audio.load();
+        audio.pause();
+      }
+    }, [ref]);
+
     const handlePrevTrack = useCallback(() => {
       const audio = (ref as RefObject<ReactH5AudioPlayer>)?.current?.audio
         ?.current;
-
       if (audio) {
         // if playback time is more than 5 sec, reset the playback rather than set prev track
         if (audio.currentTime > 5) {
@@ -133,68 +190,37 @@ const AudioPlayer = forwardRef<ReactH5AudioPlayer, AudioPlayerProps>(
     const onLoadedData = (e: Event) => {
       (e?.currentTarget as HTMLAudioElement)?.parentElement?.focus();
     };
-    // console.log({ selectedAlbum });
-    const updatePositionState = useCallback(() => {
+
+    useInterval(() => {
       const audio = (ref as RefObject<ReactH5AudioPlayer>)?.current?.audio
         ?.current;
-
-      if (audio && "setPositionState" in navigator.mediaSession) {
+      if (
+        audio &&
+        !audio.paused &&
+        audio.duration > 0 &&
+        "mediaSession" in navigator
+      ) {
         const { currentTime: position, duration, playbackRate } = audio;
-
-        console.log({ audio, position, duration, playbackRate });
-
-        if (!Number.isNaN(duration)) {
-          navigator.mediaSession.setPositionState({
-            duration,
-            playbackRate,
-            position,
-          });
-        }
-      }
-    }, [ref]);
-
-    useEffect(() => {
-      if (selectedAlbum && "mediaSession" in navigator) {
-        const {
-          track_title: title,
-          album_title: album,
-          album_artist: artist,
-          album_image: src,
-        } = selectedAlbum;
-
-        navigator.mediaSession.metadata = new MediaMetadata({
-          title,
-          artist,
-          album,
-          artwork: [
-            {
-              src,
-              sizes: "128x128",
-              type: "image/webp",
-            },
-          ],
+        navigator.mediaSession.setPositionState({
+          duration,
+          playbackRate,
+          position,
         });
       }
-    }, [selectedAlbum]);
+    }, 300);
 
     useEffect(() => {
       const audio = (ref as RefObject<ReactH5AudioPlayer>)?.current?.audio
         ?.current;
-
       if (!!audio && "mediaSession" in navigator) {
-        navigator.mediaSession.setActionHandler("play", () => {
-          audio.play();
-          updatePositionState();
-        });
-        navigator.mediaSession.setActionHandler("pause", () => {
-          audio.pause();
-        });
-        navigator.mediaSession.setActionHandler("previoustrack", () => {
-          handlePrevTrack();
-        });
-        navigator.mediaSession.setActionHandler("nexttrack", () => {
-          handleNextTrack();
-        });
+        navigator.mediaSession.setActionHandler("play", playTrack);
+        navigator.mediaSession.setActionHandler("pause", pauseTrack);
+        navigator.mediaSession.setActionHandler("stop", stopTrack);
+        navigator.mediaSession.setActionHandler(
+          "previoustrack",
+          handlePrevTrack
+        );
+        navigator.mediaSession.setActionHandler("nexttrack", handleNextTrack);
         navigator.mediaSession.setActionHandler("seekto", (details) => {
           if (details?.fastSeek && "fastSeek" in audio) {
             // Only use fast seek if supported.
@@ -202,26 +228,16 @@ const AudioPlayer = forwardRef<ReactH5AudioPlayer, AudioPlayerProps>(
             return;
           }
           audio.currentTime = details.seekTime || 0;
-          updatePositionState();
-        });
-
-        audio.addEventListener("play", () => {
-          if (navigator.mediaSession.playbackState !== "playing") {
-            console.log("played");
-            navigator.mediaSession.playbackState = "playing";
-          }
-        });
-        audio.addEventListener("pause", () => {
-          if (navigator.mediaSession.playbackState !== "paused") {
-            console.log("paused");
-            navigator.mediaSession.playbackState = "paused";
-          }
-        });
-        audio.addEventListener("ratechange", () => {
-          updatePositionState();
         });
       }
-    }, [ref, handlePrevTrack, handleNextTrack, updatePositionState]);
+    }, [
+      ref,
+      playTrack,
+      pauseTrack,
+      stopTrack,
+      handlePrevTrack,
+      handleNextTrack,
+    ]);
 
     useEffect(() => {
       if (samplesIndexMap.size) {
