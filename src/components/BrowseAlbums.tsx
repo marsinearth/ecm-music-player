@@ -96,7 +96,7 @@ const BrowseAlbums = forwardRef<H5AudioPlayer, AlbumsModalProps>(
         <div id="container" style={containerStyle}>
           <CloseButton onCloseModal={onCloseModal} />
           <section id="albumsContainer" ref={scrollContainerRef}>
-            {samplesList.map((album, i) => (
+            {samplesList?.map((album, i) => (
               <AlbumCard
                 key={album.id}
                 {...album}
