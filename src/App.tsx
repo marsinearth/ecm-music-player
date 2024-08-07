@@ -8,7 +8,9 @@ import "styles/App.css";
 import type { Album } from "typings/album";
 
 async function fetchAPI() {
-  const res = await fetch(process.env.REACT_APP_BACKEND_SERVER ?? "");
+  const res = await fetch(process.env.REACT_APP_BACKEND_SERVER ?? "", {
+    signal: AbortSignal.timeout(5000),
+  });
   return res.json();
 }
 
