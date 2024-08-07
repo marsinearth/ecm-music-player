@@ -5,5 +5,11 @@
   },
   "typescript.tsdk": ".yarn/sdks/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
-  "editor.fontFamily": "Fira Code Retina"
+  "editor.fontFamily": "Fira Code Retina",
+  "cSpell.words": [
+    "nexttrack",
+    "previoustrack",
+    "RHAP",
+    "seekto"
+  ]
 }
