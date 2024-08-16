@@ -9,7 +9,7 @@ import type { Album } from "typings/album";
 
 async function fetchAPI() {
   const res = await fetch(process.env.REACT_APP_BACKEND_SERVER ?? "", {
-    signal: AbortSignal.timeout(5000),
+    signal: AbortSignal.timeout(15000),
   });
   return res.json();
 }
