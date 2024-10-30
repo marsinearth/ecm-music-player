@@ -48,9 +48,10 @@ export default function AlbumCover({
     interactionRef.current.touchClientXStart = touch?.clientX;
   };
 
-  const onTouchEnd = ({ changedTouches }: TouchEvent<HTMLDivElement>) => {
-    const touch = changedTouches?.item(0);
+  const onTouchEnd = (e: TouchEvent<HTMLDivElement>) => {
+    const touch = e.changedTouches?.item(0);
     interactionRef.current.touchClientXDelta = touch?.clientX;
+    e.preventDefault();
 
     const { touchClientXStart, touchClientXDelta } = interactionRef.current;
     if (touchClientXStart - touchClientXDelta > 40) {
