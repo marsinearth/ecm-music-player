@@ -76,6 +76,7 @@ const BrowseAlbums = forwardRef<H5AudioPlayer, AlbumsModalProps>(
       inset: "10px",
       padding: "0",
       backgroundColor: "transparent",
+      contentVisibility: "auto",
     };
 
     const playing = !(playerRef as RefObject<H5AudioPlayer>)?.current?.audio
