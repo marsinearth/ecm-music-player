@@ -65,6 +65,10 @@ export default function AlbumCover({
     }
   };
 
+  const stopPropagation = (e: { stopPropagation: () => void }) => {
+    e.stopPropagation();
+  };
+
   const onMouseDown = ({ clientX }: MouseEvent<HTMLDivElement>) => {
     interactionRef.current.mouseClientXStart = clientX;
   };
@@ -100,7 +104,15 @@ export default function AlbumCover({
       >
         <div className="library" />
       </ImageLoader>
-      <div className="title">{track_title}</div>
+      <div
+        className="title"
+        onTouchStart={stopPropagation}
+        onTouchEnd={stopPropagation}
+        onMouseDown={stopPropagation}
+        onMouseUp={stopPropagation}
+      >
+        {track_title}
+      </div>
     </div>
   );
 }
